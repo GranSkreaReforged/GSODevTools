@@ -71,6 +71,10 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | Command | Mod | What it does |
 |---|---|---|
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
+| `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
+| `hdui` | GSOHDTextures | Screen size, the game's UI options (`useLUI`, `scaleGUI`, ...) and every root canvas with how it scales. |
+| `setuiscale <x>` | GSOHDTextures | Sets `UI.Scale` (saved to the user's cfg, so reset it afterwards) and logs the resulting factor. |
+| `openwindow <type>` | GSOHDTextures | Opens a classic window via `Script_WindowController.OpenWindowType` (2 = inventory, 3 = skills). |
 
 ## Useful `client` calls
 

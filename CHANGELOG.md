@@ -7,6 +7,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 ### Added
 - Split out of GSOOffline: `devbridge.ps1`, `decompile.ps1`, the datamining tools, and their docs and skills.
 - The DevBridge is now a standalone BepInEx plugin (`gso.devtools`, off by default), so it can test any mod.
+- `DEVBRIDGE.md` lists GSO HD Textures' mod commands (`hdplayer`, `hdui`, `setuiscale`, `openwindow`).
 - Mod commands: a `DevCommands` class in any loaded assembly adds bridge commands without referencing this plugin.
 
 ### Changed
