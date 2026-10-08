@@ -4,7 +4,8 @@ The old server mapped each door interactable to a destination; that table is los
 objects are named after their role ("Interactable_9EntranceToYorkhillMiningCave" /
 "Interactable_10ExitFromYorkhillMiningCave"), so pairs are rebuilt from the names. Arrival points sit
 a couple of metres off the destination door, toward where the rest of that scene's markers are
-(i.e. into the walkable area rather than into the wall).
+(i.e. into the walkable area rather than into the wall). That guess is only a starting point: GSOOffline
+moves each arrival to clear ground in-game (OfflineServer.Arrival.cs), since some guesses land behind rocks.
 
 Usage: python -I gen_doors.py <markers.json> <doors.json>
   e.g. gen_doors.py extracted/markers.json ../GSOOffline/src/GSOOffline/Data/doors.json

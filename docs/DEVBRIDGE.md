@@ -74,6 +74,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
+| `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
+| `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
+| `probe x y z` | GSOOffline | Colliders on a vertical line through a point and within 4 m of it. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
 | `hdui` | GSOHDTextures | Screen size, the game's UI options (`useLUI`, `scaleGUI`, ...) and every root canvas with how it scales. |
 | `setuiscale <x>` | GSOHDTextures | Sets `UI.Scale` (saved to the user's cfg, so reset it afterwards) and logs the resulting factor. |
