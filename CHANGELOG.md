@@ -10,6 +10,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 - `DEVBRIDGE.md` lists GSO HD Textures' mod commands (`hdplayer`, `hdui`, `setuiscale`, `openwindow`).
 - Mod commands: a `DevCommands` class in any loaded assembly adds bridge commands without referencing this plugin.
 - `render` command: camera effects and post-processing profile, lighting, fog, quality, terrain grass and particle counts. `DEVBRIDGE.md` lists GSOOffline's new `npcbounds`, `animclips`, `door`, `clearspot`, `probe` and `playerstate`, and GSO HD Textures' `frames`, `lighting`, `gfx`, `hdtex` and `hdterrain`.
+- `DEVBRIDGE.md` lists GSOOffline's `openurl`.
 
 ### Changed
 - The command file and screenshots moved to `<game>\GSODevTools\`.
