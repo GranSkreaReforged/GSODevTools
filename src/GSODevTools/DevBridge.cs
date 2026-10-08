@@ -83,11 +83,58 @@ namespace GSODevTools
                 case "harvestables": DumpHarvestables(a.Length > 1 ? int.Parse(a[1]) : 10); break;
                 case "near": GoNear(int.Parse(a[1])); break;
                 case "shot": Screenshot(a.Length > 1 ? a[1] : "shot"); break;
+                case "render": DumpRender(); break;
                 case "goto":
                     Player.transform.position = new Vector3(F(a[1]), F(a[2]), F(a[3]));
                     break;
                 default: ModCommands.Run(a); break;
             }
+        }
+
+        // What decides how the scene looks: camera effects, lights, ambient, fog, quality, grass and particles.
+        private static void DumpRender()
+        {
+            var log = Plugin.Log;
+            foreach (var cam in Camera.allCameras)
+            {
+                log.LogInfo($"[dev] camera '{cam.name}' depth={cam.depth} far={cam.farClipPlane} hdr={cam.allowHDR} path={cam.actualRenderingPath}");
+                foreach (var c in cam.GetComponents<Component>())
+                    log.LogInfo("[dev]   " + c.GetType().FullName + (c is Behaviour b ? (b.enabled ? " (on)" : " (off)") : ""));
+                foreach (var c in cam.GetComponents<MonoBehaviour>())
+                {
+                    // Post-processing stack v1: profile.<effect>.enabled
+                    var pf = c.GetType().GetField("profile");
+                    var profile = pf != null ? pf.GetValue(c) as UnityEngine.Object : null;
+                    if (profile == null) continue;
+                    var parts = new System.Collections.Generic.List<string>();
+                    foreach (var f in profile.GetType().GetFields())
+                    {
+                        var model = f.GetValue(profile);
+                        var en = model != null ? model.GetType().GetProperty("enabled") : null;
+                        if (en != null) parts.Add(f.Name + "=" + en.GetValue(model, null));
+                    }
+                    log.LogInfo($"[dev]   profile '{profile.name}': " + string.Join(", ", parts.ToArray()));
+                }
+            }
+            log.LogInfo($"[dev] colorSpace={QualitySettings.activeColorSpace} quality={QualitySettings.names[QualitySettings.GetQualityLevel()]} pixelLights={QualitySettings.pixelLightCount} shadows={QualitySettings.shadows} shadowDist={QualitySettings.shadowDistance} aa={QualitySettings.antiAliasing} softParticles={QualitySettings.softParticles} texLimit={QualitySettings.masterTextureLimit}");
+            log.LogInfo($"[dev] ambient mode={RenderSettings.ambientMode} sky={RenderSettings.ambientSkyColor} equator={RenderSettings.ambientEquatorColor} ground={RenderSettings.ambientGroundColor} intensity={RenderSettings.ambientIntensity} reflections={RenderSettings.reflectionIntensity} skybox={(RenderSettings.skybox != null ? RenderSettings.skybox.name + "/" + RenderSettings.skybox.shader.name : "none")} sun={(RenderSettings.sun != null ? RenderSettings.sun.name : "none")}");
+            log.LogInfo($"[dev] fog={RenderSettings.fog} mode={RenderSettings.fogMode} color={RenderSettings.fogColor} density={RenderSettings.fogDensity} start={RenderSettings.fogStartDistance} end={RenderSettings.fogEndDistance}");
+            foreach (var l in UnityEngine.Object.FindObjectsOfType<Light>())
+                if (l.type == LightType.Directional)
+                    log.LogInfo($"[dev] light '{l.name}' enabled={l.enabled} intensity={l.intensity} color={l.color} shadows={l.shadows} rot={l.transform.eulerAngles}");
+            foreach (var t in Terrain.activeTerrains)
+                log.LogInfo($"[dev] terrain '{t.name}' drawDetails={t.drawTreesAndFoliage} detailDist={t.detailObjectDistance} detailDensity={t.detailObjectDensity} treeDist={t.treeDistance} detailPrototypes={t.terrainData.detailPrototypes.Length} material={(t.materialTemplate != null ? t.materialTemplate.shader.name : t.materialType.ToString())}");
+            var ps = Type.GetType("UnityEngine.ParticleSystem, UnityEngine.ParticleSystemModule");
+            if (ps != null)
+            {
+                var all = UnityEngine.Object.FindObjectsOfType(ps);
+                int playing = 0;
+                foreach (var o in all) if ((bool)ps.GetProperty("isPlaying").GetValue(o, null)) playing++;
+                log.LogInfo($"[dev] particle systems: {all.Length} active objects, {playing} playing");
+            }
+            var opt = Scr_Options.instance;
+            if (opt != null)
+                log.LogInfo($"[dev] options AO={opt.useAmbientOcclusion} AA={opt.useAntiAliasing} VL={opt.useVolumetricLighting} MB={opt.useMotionBlur} texQuality={opt.textureQuality} detailDist={opt.terrainDetailDistance} detailDensity={opt.terrainDetailDensity} lootParticles={!opt.disableLootParticles}");
         }
 
         private static float F(string s) => float.Parse(s, CultureInfo.InvariantCulture);

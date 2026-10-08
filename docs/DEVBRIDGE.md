@@ -53,6 +53,7 @@ You can also write lines to `<game>\GSODevTools\cmd.txt` by hand. Several lines 
 | `near <uid>` | Moves the player next to a visible NPC or harvestable. |
 | `goto x y z` | Moves the player on the client side only. The server learns the new position from the next sync. For server-side moves use `client sendChatMessage $me /tele_x_y_z` or `/scene_id_x_y_z`. |
 | `shot <name>` | Saves a screenshot to `<game>\GSODevTools\<name>.png`. Read it back to check what the player would see. |
+| `render` | How the scene is drawn: camera components and the post-processing profile's effects, quality settings, ambient light, fog, directional lights, terrain grass settings, particle counts and the game's graphics options. |
 | *anything else* | A mod command (below). |
 
 ### Mod commands
@@ -71,6 +72,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | Command | Mod | What it does |
 |---|---|---|
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
+| `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
+| `animclips` | GSOOffline | The client's animation clip table, by id. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
 | `hdui` | GSOHDTextures | Screen size, the game's UI options (`useLUI`, `scaleGUI`, ...) and every root canvas with how it scales. |
 | `setuiscale <x>` | GSOHDTextures | Sets `UI.Scale` (saved to the user's cfg, so reset it afterwards) and logs the resulting factor. |
