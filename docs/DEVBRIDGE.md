@@ -74,7 +74,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
 | `hdui` | GSOHDTextures | Screen size, the game's UI options (`useLUI`, `scaleGUI`, ...) and every root canvas with how it scales. |
 | `setuiscale <x>` | GSOHDTextures | Sets `UI.Scale` (saved to the user's cfg, so reset it afterwards) and logs the resulting factor. |
-| `openwindow <type>` | GSOHDTextures | Opens a classic window via `Script_WindowController.OpenWindowType` (2 = inventory, 3 = skills). |
+| `openwindow <type> [tab] [scrollY]` | GSOHDTextures | Opens a classic window via `Script_WindowController.OpenWindowType` (2 = inventory, 3 = skills, 18 = main menu). For the main menu, `tab` picks the page (1 = Video options) and `scrollY` scrolls it (`openwindow 18 1 330` shows Interface scale). |
 
 ## Useful `client` calls
 
