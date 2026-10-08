@@ -9,7 +9,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 - The DevBridge is now a standalone BepInEx plugin (`gso.devtools`, off by default), so it can test any mod.
 - `DEVBRIDGE.md` lists GSO HD Textures' mod commands (`hdplayer`, `hdui`, `setuiscale`, `openwindow`).
 - Mod commands: a `DevCommands` class in any loaded assembly adds bridge commands without referencing this plugin.
-- `render` command: camera effects and post-processing profile, lighting, fog, quality, terrain grass and particle counts. `DEVBRIDGE.md` lists GSOOffline's new `npcbounds`, `animclips`, `door`, `clearspot` and `probe`.
+- `render` command: camera effects and post-processing profile, lighting, fog, quality, terrain grass and particle counts. `DEVBRIDGE.md` lists GSOOffline's new `npcbounds`, `animclips`, `door`, `clearspot`, `probe` and `playerstate`.
 
 ### Changed
 - The command file and screenshots moved to `<game>\GSODevTools\`.

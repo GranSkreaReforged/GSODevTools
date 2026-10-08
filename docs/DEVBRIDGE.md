@@ -76,6 +76,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
 | `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
+| `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id). |
 | `probe x y z` | GSOOffline | Colliders on a vertical line through a point and within 4 m of it. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
 | `hdui` | GSOHDTextures | Screen size, the game's UI options (`useLUI`, `scaleGUI`, ...) and every root canvas with how it scales. |
