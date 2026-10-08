@@ -9,7 +9,7 @@ It is **off by default** (`General.Enabled = false` in `BepInEx/config/gso.devto
 ## Setup
 
 ```powershell
-.\build.ps1                                                          # deploy GSODevTools.dll (game closed)
+.\build.ps1 -Deploy                                                  # deploy GSODevTools.dll (game closed)
 .\tools\devbridge.ps1 -Enable -Account Tester -Character Testguy     # bridge on + auto-login
 
 # ...test...
@@ -109,7 +109,8 @@ These are the message layouts most often needed. GSOOffline's `docs/PROTOCOL.md`
 ## Pitfalls
 
 - **Stale logs.** BepInEx only truncates `LogOutput.log` once the new game is running. `-Launch` deletes the log first; a hand-rolled wait loop must do the same, or it will match the previous run.
-- **DLLs are locked while the game runs.** Close the game before any `build.ps1` (`-Launch` and `-Disable` kill it).
+- **DLLs are locked while the game runs.** Close the game before any `build.ps1 -Deploy` (`-Launch` and `-Disable` kill it).
+- **A plain `build.ps1` doesn't change the game.** Every repo's build writes only to its own `artifacts\build\`; a mod you changed needs `build.ps1 -Deploy` in its repo before you test it.
 - **New characters need `creationdone`**, otherwise they can't move.
 - **Uids are per scene.** NPC uid = scene × 10000 + index; harvestable uid = 5,000,000 + scene × 10000 + index. They are stable between runs of the same scene, so a uid seen in `npcs` can be reused.
 - **`npcs` right after spawning can be empty.** NPCs stream in by distance; wait or move first.

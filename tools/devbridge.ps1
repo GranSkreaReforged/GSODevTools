@@ -3,7 +3,7 @@
     Drive the game through the GSO DevTools DevBridge and print the resulting log lines.
 
 .DESCRIPTION
-    The DevBridge (src/GSODevTools/DevBridge.cs, deployed by build.ps1) polls <game>\GSODevTools\cmd.txt
+    The DevBridge (src/GSODevTools/DevBridge.cs, deployed by build.ps1 -Deploy) polls <game>\GSODevTools\cmd.txt
     and runs each line in-game. This script writes those lines for you, waits between them, and returns
     the BepInEx log output they produced. See docs/DEVBRIDGE.md for the command reference.
 
@@ -53,7 +53,7 @@ function Set-ConfigValue([string]$Cfg, [string]$Section, [string]$Key, [string]$
 
 if ($Enable) {
     if (-not (Test-Path (Join-Path $GameDir 'BepInEx\plugins\GSODevTools\GSODevTools.dll'))) {
-        throw 'GSODevTools.dll is not deployed. Run .\build.ps1 in this repo first.'
+        throw 'GSODevTools.dll is not deployed. Run .\build.ps1 -Deploy in this repo first.'
     }
     Set-ConfigValue $devCfg 'General' 'Enabled' 'true'
     if (Test-Path $serverCfg) {
