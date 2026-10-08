@@ -71,6 +71,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 
 | Command | Mod | What it does |
 |---|---|---|
+| `frames [seconds]` | GSOHDTextures | Frame times over that many seconds (default 10): average, percentiles, the worst hitches, the plugin's share, garbage collections and allocation rate. Use it to measure stutter. |
+| `lighting` | GSOHDTextures | Time-of-day sky, ambient, sun, shadow, bloom, grading and AO values. |
+| `gfx on\|off` | GSOHDTextures | Switches enhanced lighting (like F10), for before/after screenshots. |
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
