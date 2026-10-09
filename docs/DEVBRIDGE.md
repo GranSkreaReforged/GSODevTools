@@ -84,6 +84,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
 | `invorder` | GSOOffline | Server vs client inventory and bank, row by row (order, client id, amount). Swaps and drags are index based, so the orders must match. |
 | `sortinv` | GSOOffline | Sorts the inventory as the window's "By name" button does. |
+| `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
+| `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
+| `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
 | `openurl <url>` | GSOOffline | Calls `Application.OpenURL` as a menu link would. The log shows `Opened <url> through the shell.` when the link was sent through `explorer.exe`, outside the game's process tree. |
 | `probe x y z` | GSOOffline | Colliders on a vertical line through a point and within 4 m of it. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
