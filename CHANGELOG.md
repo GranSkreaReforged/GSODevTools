@@ -5,6 +5,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 ## [Unreleased]
 
 ### Added
+- `tools/datamining/gen_loot.py`: downloads the community wiki and builds GSOOffline's monster drop tables (`Data/loot.json`) from it, since the server's own tables are lost. `DEVBRIDGE.md` lists GSOOffline's `loot`, `lootroll` and `killnpc`.
 - Split out of GSOOffline: `devbridge.ps1`, `decompile.ps1`, the datamining tools, and their docs.
 - The DevBridge is now a standalone BepInEx plugin (`gso.devtools`, off by default), so it can test any mod.
 - `DEVBRIDGE.md` lists GSO HD Textures' mod commands (`hdplayer`, `hdui`, `setuiscale`, `openwindow`).

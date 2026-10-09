@@ -6,7 +6,7 @@ Developer tooling shared by the Gran Skrea Online mods (GSO Offline Server, GSO 
 |---|---|
 | **DevBridge** (`src/GSODevTools`, a BepInEx plugin) + `tools/devbridge.ps1` | Drive the real game client by script: send client messages, list NPCs, teleport, take screenshots. Mods add their own commands through a `DevCommands` class. See [docs/DEVBRIDGE.md](docs/DEVBRIDGE.md). |
 | `tools/decompile.ps1` | Decompile the game's scripts with dnSpyEx into `decomp/` |
-| `tools/datamining/` | Extract the game's data (XML TextAssets, scene markers, scene list) with UnityPy into `extracted/`, and generate GSOOffline's door table |
+| `tools/datamining/` | Extract the game's data (XML TextAssets, scene markers, scene list) with UnityPy into `extracted/`, and generate GSOOffline's door table and its monster drop tables (from the community wiki) |
 
 Every script is listed in [docs/COMMANDS.md](docs/COMMANDS.md).
 

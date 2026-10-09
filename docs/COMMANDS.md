@@ -43,6 +43,8 @@ Writes `decomp\` (git-ignored; never commit it).
 |---|---|
 | `.\tools\datamining\extract.ps1 [-GameDir]` | Creates the venv (UnityPy) and writes `extracted\textassets\*.txt`, `extracted\markers.json` and `extracted\scenes.txt` |
 | `tools\datamining\.venv\Scripts\python.exe -I tools\datamining\gen_doors.py extracted\markers.json ..\GSOOffline\src\GSOOffline\Data\doors.json` | Regenerate GSOOffline's door table |
+| `python -I tools\datamining\gen_loot.py fetch extracted\wiki\pages.json` | Download every page of the Gran Skrea Online community wiki (wikitext, through its MediaWiki API) into `extracted\wiki\` |
+| `python -I tools\datamining\gen_loot.py build extracted\wiki\pages.json extracted\textassets ..\GSOOffline\src\GSOOffline\Data\loot.json` | Regenerate GSOOffline's monster drop tables from the wiki's "Drops" and "Drop sources" tables, matched to the game's item and NPC names. Prints names it couldn't match (fix them in `ALIASES`/`SKIP`). |
 | `dump_text.py`, `dump_markers.py`, `scenes.py`, `count_dummies.py` | Building blocks used by extract.ps1, runnable on their own (see each file's docstring/argv) |
 
 ## DevBridge commands (written to `<game>\GSODevTools\cmd.txt`)
