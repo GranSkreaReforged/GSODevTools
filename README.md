@@ -42,7 +42,7 @@ Without `-Deploy`, `build.ps1` only reads the game. The plugin is laid out in `a
 | `dev` | Integration. Every feature merges here. |
 | `feature/<area>/<name>`, `fix/<area>/<name>` | One piece of work, branched from `dev`, e.g. `feature/devbridge/inventory-dump`. |
 
-Branch from `dev`, push the branch while you work, then merge it back with `git merge --no-ff` and delete it. Updating `main` is `git switch main; git merge --no-ff dev; git push; git switch dev`. Nothing here is released, so there is no tag or release script.
+Branch from `dev`, work locally, then merge it back with `git merge --no-ff`, push `dev` and delete the branch. Feature branches stay local unless you want one backed up or shared. Updating `main` is `git switch main; git merge --no-ff dev; git push; git switch dev`. Nothing here is released, so there is no tag or release script.
 
 ## History
 
