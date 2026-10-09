@@ -75,6 +75,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `lighting` | GSOHDTextures | Time-of-day sky, ambient, sun, shadow, bloom, grading and AO values. |
 | `hdtex on\|off` | GSOHDTextures | Shows the original textures or the HD ones in the same session, for comparisons. |
 | `hdterrain` | GSOHDTextures | Each terrain layer's colour and normal texture (name, size, format), tiling, metallic and smoothness. |
+| `weather` | GSOHDTextures | The game's weather controller (time, speed, cloudiness, temperature, wind, fogginess), rain particles and audio, render fog, the weather pattern and its grading mood. |
+| `setweather <clear\|partlycloudy\|overcast\|rain\|fog> [now]` / `setweather auto` | GSOHDTextures | Holds a weather (blended in, or at once with `now`), or goes back to the schedule. |
+| `settime <0-2400>` | GSOHDTextures | Sets the time of day (1830 = 18:30). |
 | `gfx on\|off` | GSOHDTextures | Switches enhanced lighting (like F10), for before/after screenshots. |
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
