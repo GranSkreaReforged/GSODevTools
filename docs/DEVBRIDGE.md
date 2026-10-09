@@ -75,13 +75,31 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `lighting` | GSOHDTextures | Time-of-day sky, ambient, sun, shadow, bloom, grading and AO values. |
 | `hdtex on\|off` | GSOHDTextures | Shows the original textures or the HD ones in the same session, for comparisons. |
 | `hdterrain` | GSOHDTextures | Each terrain layer's colour and normal texture (name, size, format), tiling, metallic and smoothness. |
+| `weather` | GSOHDTextures | The game's weather controller (time, speed, cloudiness, temperature, wind, fogginess), rain particles and audio, render fog, the weather pattern and its grading mood. |
+| `setweather <clear\|partlycloudy\|overcast\|rain\|fog> [now]` / `setweather auto` | GSOHDTextures | Holds a weather (blended in, or at once with `now`), or goes back to the schedule. |
+| `settime <0-2400>` | GSOHDTextures | Sets the time of day (1830 = 18:30). |
+| `ambience [radius]` | GSOHDTextures | The lights and particle systems within *radius* (default 150 m), and objects named like light sources (torch, lantern, window, chimney...). |
+| `findnames <word>` | GSOHDTextures | Objects, meshes and materials whose names contain the word, with each material's shader and emission support. |
+| `inspect <root name>` | GSOHDTextures | That object as a tree with components and positions; also particle shader availability, terrain trees and water surfaces. |
+| `mattex <material>` | GSOHDTextures | The textures on every loaded material of that name. |
+| `ambstatus` | GSOHDTextures | What the ambience module added in this scene, and live particle counts. |
+| `amblamps [n]` / `ambchimneys [n]` | GSOHDTextures | The nearest lit lamps, detected chimneys and leaf trees. |
+| `ambwindow` / `ambviewchimney` | GSOHDTextures | Moves the player in front of the nearest lit windows or chimney, along the camera, for a screenshot. |
+| `lightning` | GSOHDTextures | A lightning strike now: bolt, flash and thunder. |
 | `gfx on\|off` | GSOHDTextures | Switches enhanced lighting (like F10), for before/after screenshots. |
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
 | `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
-| `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id). |
+| `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
+| `invorder` | GSOOffline | Server vs client inventory and bank, row by row (order, client id, amount). Swaps and drags are index based, so the orders must match. |
+| `sortinv` | GSOOffline | Sorts the inventory as the window's "By name" button does. |
+| `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
+| `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
+| `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
+| `fx <id>` / `sfx <id>` | GSOOffline | Plays an effect (the game's "_GFX IDs" list) 3 m in front of the player, or a sound at the player. |
+| `projectiles` | GSOOffline | The client's projectiles in flight (id, position, speed, model). Arrived projectiles linger invisibly for 5 s before the client deletes them. |
 | `openurl <url>` | GSOOffline | Calls `Application.OpenURL` as a menu link would. The log shows `Opened <url> through the shell.` when the link was sent through `explorer.exe`, outside the game's process tree. |
 | `probe x y z` | GSOOffline | Colliders on a vertical line through a point and within 4 m of it. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |

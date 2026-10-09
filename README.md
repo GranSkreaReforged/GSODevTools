@@ -6,7 +6,7 @@ Developer tooling shared by the Gran Skrea Online mods (GSO Offline Server, GSO 
 |---|---|
 | **DevBridge** (`src/GSODevTools`, a BepInEx plugin) + `tools/devbridge.ps1` | Drive the real game client by script: send client messages, list NPCs, teleport, take screenshots. Mods add their own commands through a `DevCommands` class. See [docs/DEVBRIDGE.md](docs/DEVBRIDGE.md). |
 | `tools/decompile.ps1` | Decompile the game's scripts with dnSpyEx into `decomp/` |
-| `tools/datamining/` | Extract the game's data (XML TextAssets, scene markers, scene list) with UnityPy into `extracted/`, and generate GSOOffline's door table |
+| `tools/datamining/` | Extract the game's data (XML TextAssets, scene markers, scene list) with UnityPy into `extracted/`, and generate GSOOffline's door table and its monster drop tables (from the community wiki) |
 
 Every script is listed in [docs/COMMANDS.md](docs/COMMANDS.md).
 
@@ -33,6 +33,18 @@ Without `-Deploy`, `build.ps1` only reads the game. The plugin is laid out in `a
 ## Game content
 
 `decomp/` and `extracted/` hold proprietary game code and data. They are git-ignored: never commit or redistribute them.
+
+## Branches
+
+| Branch | Role |
+|---|---|
+| `main` | Stable. Receives `dev` through a reviewed pull request. |
+| `dev` | Integration. Every feature merges here. |
+| `feature/<area>/<name>`, `fix/<area>/<name>` | One piece of work, branched from `dev`, e.g. `feature/devbridge/inventory-dump`. |
+
+Branch from `dev`, work locally, then merge it back with `git merge --no-ff`, push `dev` and delete the branch. Feature branches stay local unless you want one backed up or shared. Changes that could break testing or the user's saves (`-ResetSaves`, the DevBridge dispatcher, mod command discovery), carry a security risk (downloads, running processes, deleting files, new dependencies), are large (roughly 300+ lines of code or 10+ files) or touch the build scripts go to `dev` through a pull request that the maintainer reviews and merges on GitHub. `dev` reaches `main` the same way. The branch's final commit is the pull request: first line the title, the rest the description. Merge with **Create a merge commit**.
+
+Nothing here is released, so there is no tag or release script: every build is a dev build, versioned like `0.1.0-dev+<branch>.<commit>` and logged at startup.
 
 ## History
 

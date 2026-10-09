@@ -25,7 +25,7 @@ namespace GSODevTools
 
             if (!enabled.Value)
             {
-                Log.LogInfo($"{Name} {Version} loaded (DevBridge off).");
+                Log.LogInfo($"{Name} {PluginInfo.BuildVersion} loaded (DevBridge off).");
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace GSODevTools
             host.hideFlags = HideFlags.HideAndDontSave;
             host.AddComponent<DevBridge>();
 
-            Log.LogInfo($"{Name} {Version} loaded. DevBridge on: {WorkDir}");
+            Log.LogInfo($"{Name} {PluginInfo.BuildVersion} loaded. DevBridge on: {WorkDir}");
         }
     }
 }
