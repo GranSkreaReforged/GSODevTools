@@ -34,6 +34,16 @@ Without `-Deploy`, `build.ps1` only reads the game. The plugin is laid out in `a
 
 `decomp/` and `extracted/` hold proprietary game code and data. They are git-ignored: never commit or redistribute them.
 
+## Branches
+
+| Branch | Role |
+|---|---|
+| `main` | Stable. Receives one merge of `dev` at a time. |
+| `dev` | Integration. Every feature merges here. |
+| `feature/<area>/<name>`, `fix/<area>/<name>` | One piece of work, branched from `dev`, e.g. `feature/devbridge/inventory-dump`. |
+
+Branch from `dev`, push the branch while you work, then merge it back with `git merge --no-ff` and delete it. Updating `main` is `git switch main; git merge --no-ff dev; git push; git switch dev`. Nothing here is released, so there is no tag or release script.
+
 ## History
 
 Split out of GSOOffline at commit 77cc625 (2026-10-08). The earlier history of these files is in that repo.

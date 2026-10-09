@@ -15,4 +15,5 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 ### Changed
 - The command file and screenshots moved to `<game>\GSODevTools\`.
 - `devbridge.ps1 -ResetSaves` now deletes only the named test account and character, instead of every save.
+- Branching: work happens on `feature/<area>/<name>` branches merged into `dev`, which is merged into `main` (README, "Branches").
 - Builds no longer touch the game. `build.ps1` puts the plugin in `artifacts\build\<Configuration>\`, laid out like the game folder, with an `INSTALL.txt` saying where it goes; `-Deploy` (replacing the old default and `-NoDeploy`) copies it into the game. BepInEx's DLLs for compiling come from the pinned BepInEx zip, so building doesn't need BepInEx installed in the game.
