@@ -78,6 +78,14 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `weather` | GSOHDTextures | The game's weather controller (time, speed, cloudiness, temperature, wind, fogginess), rain particles and audio, render fog, the weather pattern and its grading mood. |
 | `setweather <clear\|partlycloudy\|overcast\|rain\|fog> [now]` / `setweather auto` | GSOHDTextures | Holds a weather (blended in, or at once with `now`), or goes back to the schedule. |
 | `settime <0-2400>` | GSOHDTextures | Sets the time of day (1830 = 18:30). |
+| `ambience [radius]` | GSOHDTextures | The lights and particle systems within *radius* (default 150 m), and objects named like light sources (torch, lantern, window, chimney...). |
+| `findnames <word>` | GSOHDTextures | Objects, meshes and materials whose names contain the word, with each material's shader and emission support. |
+| `inspect <root name>` | GSOHDTextures | That object as a tree with components and positions; also particle shader availability, terrain trees and water surfaces. |
+| `mattex <material>` | GSOHDTextures | The textures on every loaded material of that name. |
+| `ambstatus` | GSOHDTextures | What the ambience module added in this scene, and live particle counts. |
+| `amblamps [n]` / `ambchimneys [n]` | GSOHDTextures | The nearest lit lamps, detected chimneys and leaf trees. |
+| `ambwindow` / `ambviewchimney` | GSOHDTextures | Moves the player in front of the nearest lit windows or chimney, along the camera, for a screenshot. |
+| `lightning` | GSOHDTextures | A lightning strike now: bolt, flash and thunder. |
 | `gfx on\|off` | GSOHDTextures | Switches enhanced lighting (like F10), for before/after screenshots. |
 | `checkrecipes` | GSOOffline | Compares the server's crafting recipe ids with the client's `Script_Crafting` list. All 341 should match. |
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
