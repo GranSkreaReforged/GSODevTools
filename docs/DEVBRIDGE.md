@@ -87,6 +87,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
+| `fx <id>` / `sfx <id>` | GSOOffline | Plays an effect (the game's "_GFX IDs" list) 3 m in front of the player, or a sound at the player. |
+| `projectiles` | GSOOffline | The client's projectiles in flight (id, position, speed, model). Arrived projectiles linger invisibly for 5 s before the client deletes them. |
 | `openurl <url>` | GSOOffline | Calls `Application.OpenURL` as a menu link would. The log shows `Opened <url> through the shell.` when the link was sent through `explorer.exe`, outside the game's process tree. |
 | `probe x y z` | GSOOffline | Colliders on a vertical line through a point and within 4 m of it. |
 | `hdplayer` | GSOHDTextures | Each local-player material's texture properties: `HD WxH for <key>` or `<key> (original)`. |
