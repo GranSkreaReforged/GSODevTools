@@ -38,11 +38,13 @@ Without `-Deploy`, `build.ps1` only reads the game. The plugin is laid out in `a
 
 | Branch | Role |
 |---|---|
-| `main` | Stable. Receives one merge of `dev` at a time. |
+| `main` | Stable. Receives `dev` through a reviewed pull request. |
 | `dev` | Integration. Every feature merges here. |
 | `feature/<area>/<name>`, `fix/<area>/<name>` | One piece of work, branched from `dev`, e.g. `feature/devbridge/inventory-dump`. |
 
-Branch from `dev`, work locally, then merge it back with `git merge --no-ff`, push `dev` and delete the branch. Feature branches stay local unless you want one backed up or shared. Updating `main` is `git switch main; git merge --no-ff dev; git push; git switch dev`. Nothing here is released, so there is no tag or release script.
+Branch from `dev`, work locally, then merge it back with `git merge --no-ff`, push `dev` and delete the branch. Feature branches stay local unless you want one backed up or shared. Changes that could break testing or the user's saves (`-ResetSaves`, the DevBridge dispatcher, mod command discovery), carry a security risk (downloads, running processes, deleting files, new dependencies), are large (roughly 300+ lines of code or 10+ files) or touch the build scripts go to `dev` through a pull request that the maintainer reviews and merges on GitHub. `dev` reaches `main` the same way. The branch's final commit is the pull request: first line the title, the rest the description. Merge with **Create a merge commit**.
+
+Nothing here is released, so there is no tag or release script: every build is a dev build, versioned like `0.1.0-dev+<branch>.<commit>` and logged at startup.
 
 ## History
 
