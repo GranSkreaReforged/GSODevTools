@@ -96,6 +96,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `doorsigns` | GSOOffline | Every shop sign (`Prefab_Object_Sign_*`) in the scene with its three nearest doors and gates. |
 | `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
 | `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would. |
+| `useobj <typeId>` | GSOOffline | Uses the nearest object of that type as a mouse click does. |
+| `windows` | GSOOffline | The client's open windows by type (2 inventory, 7 shop, 14 bank...). |
 | `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
 | `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
