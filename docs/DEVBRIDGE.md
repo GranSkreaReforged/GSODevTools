@@ -94,6 +94,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
 | `building [n]` | GSOOffline | Lists the buildings (Yorkhill's shops and houses), or goes into building *n* as clicking its door would. Click a door inside (`client attemptObjectInteract $me 37`) to come back out. |
 | `doorsigns` | GSOOffline | Every shop sign (`Prefab_Object_Sign_*`) in the scene with its three nearest doors and gates. |
+| `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
 | `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
 | `invorder` | GSOOffline | Server vs client inventory and bank, row by row (order, client id, amount). Swaps and drags are index based, so the orders must match. |
