@@ -53,6 +53,7 @@ You can also write lines to `<game>\GSODevTools\cmd.txt` by hand. Several lines 
 | `near <uid>` | Moves the player next to a visible NPC or harvestable. |
 | `goto x y z` | Moves the player on the client side only. The server learns the new position from the next sync. For server-side moves use `client sendChatMessage $me /tele_x_y_z` or `/scene_id_x_y_z`. |
 | `shot <name>` | Saves a screenshot to `<game>\GSODevTools\<name>.png`. Read it back to check what the player would see. |
+| `camera <yaw> <pitch> [distance] [seconds]` | Places the orbit camera without the mouse: `yaw` in degrees round the player from straight behind (180 = facing them, 90 = their right), `pitch` how far it looks down (-55..85, negative looks up; 10-20 is an over-the-shoulder view), `distance` in metres. With `seconds` it glides there (eased, the short way round), for steady pans in recordings. |
 | `render` | How the scene is drawn: camera components and the post-processing profile's effects, quality settings, ambient light, fog, directional lights, terrain grass settings, particle counts and the game's graphics options. |
 | *anything else* | A mod command (below). |
 
