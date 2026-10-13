@@ -121,10 +121,20 @@ for gate in [(947.57, 20.9, 1306.42), (1095.99, 9.09, 1264.94)]:
 # found; these pick the room. Each is (scene, door marker, interior scene, a point in the room by its exit).
 INNS = [
     ("lighthouse inn", 1, (566.84, 11.83, 927.07), 23, (100.09, 101.91, 1.19)),   # the Innkeeper's room
+    # Yorkhill's harbour inn: the only inn door on the harbour, present in both West Athagos and Yorkhill City
+    # (the harbour is in both scenes); it gets the one unclaimed inn room, the Tavern keeper's.
+    ("harbour inn", 1, (1023.58, 7.9, 1441.86), 20, (256.71, 100.17, 294.05)),
+    ("harbour inn", 8, (1023.58, 7.9, 1441.86), 20, (256.71, 100.17, 294.05)),
 ]
 for note, scene, door, room_scene, room in INNS:
     result.append({"type": 29, "scene": scene, "pos": list(door), "toScene": room_scene,
                    "toPos": arrival(room_scene, room), "note": note})
+
+# Deepheart (35) was never released, and every door there stays locked on purpose. markers.json has none of
+# its doors (the extraction missed that scene's interactables; GSOOffline's `interactables 37` lists them
+# live). Tried in-game and dropped: nothing ties its town's doors to the rooms of Scene_39DeepheartInteriors;
+# its towers (a door at the foot, a hatch in the roof) let a player fall through the roof; its two tunnels
+# lead to Scene_40DeepheartCave1, which is empty (no creatures, no resources) and drops you down a slope.
 
 # Yorkhill's shops and houses: generic doors (type 37) in Yorkhill City (8) open rooms laid out in
 # Scene_20YorkhillInteriors (20). Each room is (exit door inside, a point in the room to face). The
