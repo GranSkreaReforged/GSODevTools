@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Added
+- `gen_doors.py` links the generic doors, gates, hatches and ladders players reported broken: the poacher dungeon, the Yorkhill sewers hatch, the Bir Amez crypts, the Bal Sardan town gate and Yorkhill's city gates (paired with their twin on the far side of the wall). It also gives the lighthouse inn's door its own room (`INNS`), instead of the first room in the interiors scene.
 - `gen_doors.py` writes Yorkhill's buildings into GSOOffline's `doors.json`: which door in Yorkhill City opens which room of the Yorkhill interiors scene (from the shop signs and quest texts; doors without a sign are marked as guesses), the Hall of Heroes (scene 37), and the manor kitchen's way down to the rat cellar. `DEVBRIDGE.md` lists GSOOffline's `building` and `doorsigns`.
 - `camera <yaw> <pitch> [distance] [seconds]` bridge command: places the orbit camera round the player (yaw 0 = behind, 180 = in front) or glides it there, without driving the mouse. Used by GSOMedia for repeatable shots.
 - `tools/datamining/gen_loot.py`: downloads the community wiki and builds GSOOffline's monster drop tables (`Data/loot.json`) from it, since the server's own tables are lost. `DEVBRIDGE.md` lists GSOOffline's `loot`, `lootroll` and `killnpc`.
