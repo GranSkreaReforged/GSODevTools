@@ -75,6 +75,67 @@ for d in doors:
     if d["typeId"] == 42 and d["level"] == 16:   # Coral dungeon entrance
         result.append({"type": 42, "scene": 16, "pos": d["pos"], "toScene": 27, "toPos": scene_entry(27), "note": "Coral dungeon"})
 
+# Two-way links through generic doors, gates, hatches and ladders (type 37), whose names carry no
+# destination. Each side is (scene id, door marker, where a player stands to use it); going through one side
+# lands on the other side's standing spot. Standing spots were recorded by a player (/pos) in front of each
+# door. Scene ids are the game's (the file number), not marker levels: Scene_38PoacherDungeon is level 37.
+LINKS = [
+    ("poacher dungeon", (13, (1241.34, 19.8, 509.46), (1242.34, 19.9, 509.41)),
+                        (38, (-149.64, 55.99, 142.1), (-151.15, 56.1, 141.76))),
+    ("Yorkhill sewers", (8, (824.02, 17.75, 1341.73), (822.39, 17.91, 1342.83)),     # hatch
+                        (4, (-85.65, 64.84, -14.82), (-83.91, 64.82, -13.21))),      # ladder
+    ("Bir Amez crypts", (7, (1010.48, 6.81, -229.99), (1009.64, 5.68, -230.09)),
+                        (29, (49.34, 200.66, -32.73), (49.88, 199.52, -32.69))),
+    ("Bal Sardan town", (7, (817.92, 5.71, 477.62), (818.54, 5.72, 477.18)),
+                        (31, (821.65, 5.71, 478.02), (821.01, 5.72, 476.55))),
+]
+
+
+def beyond(door, other, metres=2.5):
+    """A spot `metres` past `door`, on the far side from `other` (the twin door on the other side of a wall)."""
+    dx, dz = door[0] - other[0], door[2] - other[2]
+    n = math.hypot(dx, dz) or 1.0
+    return (round(door[0] + metres * dx / n, 2), door[1], round(door[2] + metres * dz / n, 2))
+
+
+# Yorkhill's city gates: West Athagos (1) outside the walls, Yorkhill City (8) inside. Each gate is an
+# interactable in both scenes, a few metres apart on either side of the wall, so the pair says which way is in.
+for outer, inner in [((863.04, 17.37, 1306.42), (862.57, 17.57, 1309.83)),     # south
+                     ((823.02, 10.54, 1433.96), (826.3, 10.74, 1433.23)),      # west, by the harbour
+                     ((1006.15, 9.95, 1412.06), (1006.5, 10.2, 1408.92))]:     # north-east
+    LINKS.append(("Yorkhill gate", (1, outer, beyond(outer, inner)), (8, inner, beyond(inner, outer))))
+
+for note, a, b in LINKS:
+    for (fs, fpos, _), (ts, _, tstand) in ((a, b), (b, a)):
+        result.append({"type": 37, "scene": fs, "pos": list(fpos), "toScene": ts,
+                       "toPos": [tstand[0], round(tstand[1] + 0.5, 2), tstand[2]], "note": note})
+
+# Two Yorkhill City gates have no twin in West Athagos: they only lead out, onto the road beyond them.
+YORKHILL_CENTRE = (930.0, 0.0, 1380.0)
+for gate in [(947.57, 20.9, 1306.42), (1095.99, 9.09, 1264.94)]:
+    out = beyond(gate, YORKHILL_CENTRE, 4.0)
+    result.append({"type": 37, "scene": 8, "pos": list(gate), "toScene": 1,
+                   "toPos": [out[0], round(out[1] + 0.5, 2), out[2]], "note": "Yorkhill gate (out only)"})
+
+# Inns (type 29). Without an entry here a type 29 door opens its scene's interior scene at the first room
+# found; these pick the room. Each is (scene, door marker, interior scene, a point in the room by its exit).
+INNS = [
+    ("lighthouse inn", 1, (566.84, 11.83, 927.07), 23, (100.09, 101.91, 1.19)),   # the Innkeeper's room
+    # Yorkhill's harbour inn: the only inn door on the harbour, present in both West Athagos and Yorkhill City
+    # (the harbour is in both scenes); it gets the one unclaimed inn room, the Tavern keeper's.
+    ("harbour inn", 1, (1023.58, 7.9, 1441.86), 20, (256.71, 100.17, 294.05)),
+    ("harbour inn", 8, (1023.58, 7.9, 1441.86), 20, (256.71, 100.17, 294.05)),
+]
+for note, scene, door, room_scene, room in INNS:
+    result.append({"type": 29, "scene": scene, "pos": list(door), "toScene": room_scene,
+                   "toPos": arrival(room_scene, room), "note": note})
+
+# Deepheart (35) was never released, and every door there stays locked on purpose. markers.json has none of
+# its doors (the extraction missed that scene's interactables; GSOOffline's `interactables 37` lists them
+# live). Tried in-game and dropped: nothing ties its town's doors to the rooms of Scene_39DeepheartInteriors;
+# its towers (a door at the foot, a hatch in the roof) let a player fall through the roof; its two tunnels
+# lead to Scene_40DeepheartCave1, which is empty (no creatures, no resources) and drops you down a slope.
+
 # Yorkhill's shops and houses: generic doors (type 37) in Yorkhill City (8) open rooms laid out in
 # Scene_20YorkhillInteriors (20). Each room is (exit door inside, a point in the room to face). The
 # shop signs (Prefab_Object_Sign_*, see GSOOffline's `doorsigns` bridge command) name the building of
