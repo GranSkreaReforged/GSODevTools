@@ -97,6 +97,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
 | `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would. |
 | `useobj <typeId>` | GSOOffline | Uses the nearest object of that type as a mouse click does. |
+| `updatecheck <version>` / `hdupdatecheck <version>` | GSOOffline / GSOHDTextures | Reruns the GitHub update check as if that version were installed, e.g. `1.0.0` to see the "NEW UPDATE AVAILABLE" overlay. |
 | `die` | GSOOffline | Kills the player as a fatal hit would; they wake at their home wayshrine after the respawn delay (5 s). |
 | `canmove` | GSOOffline | Whether the client lets the player move (`dead`, `canControl`) and their position. |
 | `workbench` | GSOOffline | The crafting window the client shows (`0` = none) and whether a craft is in progress. |
