@@ -97,6 +97,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
 | `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would. |
 | `useobj <typeId>` | GSOOffline | Uses the nearest object of that type as a mouse click does. |
+| `chairs [n]` | GSOOffline | The nearest *n* seats (chair interactables, type 54): the bench or room they belong to, distance, seat point. |
+| `sitall [from]` | GSOOffline | Sits on every seat in the scene in turn as a click does and logs `FAIL` for any where the sit doesn't hold; also checks that stepping off stands you up. About 3 s per seat. |
 | `windows` | GSOOffline | The client's open windows by type (2 inventory, 7 shop, 14 bank...). |
 | `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
