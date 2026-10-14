@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Added
+- `DEVBRIDGE.md` lists GSOOffline's `useobj`, `windows`, `hover`, `interactprompt`, `actionanim`, `chairs`, `sitall`, `workbench`, `die`, `canmove`, `weight`, `runtest` and `updatecheck`, and GSO HD Textures' `hdupdatecheck`.
 - `gen_doors.py` links the generic doors, gates, hatches and ladders players reported broken: the poacher dungeon, the Yorkhill sewers hatch, the Bir Amez crypts, the Bal Sardan town gate and Yorkhill's city gates (paired with their twin on the far side of the wall). It also gives inn doors their own room (`INNS`: the lighthouse inn, and Yorkhill's harbour inn in both scenes), instead of the first room in the interiors scene. Deepheart stays unlinked, with the reasons in a comment; its doors are missing from `markers.json`.
 - `gen_doors.py` writes Yorkhill's buildings into GSOOffline's `doors.json`: which door in Yorkhill City opens which room of the Yorkhill interiors scene (from the shop signs and quest texts; doors without a sign are marked as guesses), the Hall of Heroes (scene 37), and the manor kitchen's way down to the rat cellar. `DEVBRIDGE.md` lists GSOOffline's `building` and `doorsigns`.
 - `camera <yaw> <pitch> [distance] [seconds]` bridge command: places the orbit camera round the player (yaw 0 = behind, 180 = in front) or glides it there, without driving the mouse. Used by GSOMedia for repeatable shots.
