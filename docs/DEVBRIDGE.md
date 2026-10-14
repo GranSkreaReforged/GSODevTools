@@ -53,6 +53,7 @@ You can also write lines to `<game>\GSODevTools\cmd.txt` by hand. Several lines 
 | `near <uid>` | Moves the player next to a visible NPC or harvestable. |
 | `goto x y z` | Moves the player on the client side only. The server learns the new position from the next sync. For server-side moves use `client sendChatMessage $me /tele_x_y_z` or `/scene_id_x_y_z`. |
 | `shot <name>` | Saves a screenshot to `<game>\GSODevTools\<name>.png`. Read it back to check what the player would see. |
+| `camera <yaw> <pitch> [distance] [seconds]` | Places the orbit camera without the mouse: `yaw` in degrees round the player from straight behind (180 = facing them, 90 = their right), `pitch` how far it looks down (-55..85, negative looks up; 10-20 is an over-the-shoulder view), `distance` in metres. With `seconds` it glides there (eased, the short way round), for steady pans in recordings. |
 | `render` | How the scene is drawn: camera components and the post-processing profile's effects, quality settings, ambient light, fog, directional lights, terrain grass settings, particle counts and the game's graphics options. |
 | *anything else* | A mod command (below). |
 
@@ -91,6 +92,21 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
 | `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
+| `building [n]` | GSOOffline | Lists the buildings (Yorkhill's shops and houses), or goes into building *n* as clicking its door would. Click a door inside (`client attemptObjectInteract $me 37`) to come back out. |
+| `doorsigns` | GSOOffline | Every shop sign (`Prefab_Object_Sign_*`) in the scene with its three nearest doors and gates. |
+| `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
+| `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would. |
+| `useobj <typeId>` | GSOOffline | Uses the nearest object of that type as a mouse click does. |
+| `updatecheck <version>` / `hdupdatecheck <version>` | GSOOffline / GSOHDTextures | Reruns the GitHub update check as if that version were installed, e.g. `1.0.0` to see the "NEW UPDATE AVAILABLE" overlay. |
+| `weight` | GSOOffline | Carried weight against capacity as the server and the client count it, and the player's run speeds (forward, back, sideways). |
+| `runtest [seconds]` | GSOOffline | Autoruns forward (default 1 s) and logs the distance and speed against the maximum. Start somewhere open: walls stop it. |
+| `die` | GSOOffline | Kills the player as a fatal hit would; they wake at their home wayshrine after the respawn delay (5 s). |
+| `canmove` | GSOOffline | Whether the client lets the player move (`dead`, `canControl`) and their position. |
+| `workbench` | GSOOffline | The crafting window the client shows (`0` = none) and whether a craft is in progress. |
+| `chairs [n]` | GSOOffline | The nearest *n* seats (chair interactables, type 54): the bench or room they belong to, distance, seat point. |
+| `sitall [from]` | GSOOffline | Sits on every seat in the scene in turn as a click does and logs `FAIL` for any where the sit doesn't hold; also checks that stepping off stands you up. About 3 s per seat. |
+| `windows` | GSOOffline | The client's open windows by type (2 inventory, 7 shop, 14 bank...). |
+| `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
 | `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
 | `invorder` | GSOOffline | Server vs client inventory and bank, row by row (order, client id, amount). Swaps and drags are index based, so the orders must match. |
