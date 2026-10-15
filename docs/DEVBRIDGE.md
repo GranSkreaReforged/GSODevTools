@@ -72,6 +72,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 
 | Command | Mod | What it does |
 |---|---|---|
+| `heap` | GSOHDTextures | The managed heap (`GC.GetTotalMemory`). Unity's Mono profiler sizes and Mono's process memory read 0 in the shipped game, so measure process memory from outside (`Get-Process GSO`). |
 | `frames [seconds]` | GSOHDTextures | Frame times over that many seconds (default 10): average, percentiles, the worst hitches, the plugin's share, garbage collections and allocation rate. Use it to measure stutter. |
 | `lighting` | GSOHDTextures | Time-of-day sky, ambient, sun, shadow, bloom, grading and AO values. |
 | `hdtex on\|off` | GSOHDTextures | Shows the original textures or the HD ones in the same session, for comparisons. |
