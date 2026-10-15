@@ -72,6 +72,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 
 | Command | Mod | What it does |
 |---|---|---|
+| `heap` | GSOHDTextures | The managed heap (`GC.GetTotalMemory`). Unity's Mono profiler sizes and Mono's process memory read 0 in the shipped game, so measure process memory from outside (`Get-Process GSO`). |
 | `frames [seconds]` | GSOHDTextures | Frame times over that many seconds (default 10): average, percentiles, the worst hitches, the plugin's share, garbage collections and allocation rate. Use it to measure stutter. |
 | `lighting` | GSOHDTextures | Time-of-day sky, ambient, sun, shadow, bloom, grading and AO values. |
 | `hdtex on\|off` | GSOHDTextures | Shows the original textures or the HD ones in the same session, for comparisons. |
@@ -114,6 +115,12 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
+| `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
+| `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
+| `spawnedobjects [from] [to]` | GSOOffline | What each spawned-object prefab (`ab_spawnedObject_N`) contains: objects, renderers and materials, and scripts. Identifies the numbered props without spawning them. |
+| `npcparts <uid>` / `npcpart <uid> <child> on\|off` | GSOOffline | A client NPC's model parts (renderers, materials, lights), and showing or hiding one by name (`_` for spaces), e.g. to find an aura that's part of a model. |
+| `flyers` | GSOOffline | The client's flying followers (parrot, bats): prefab type, owner, distance from the player and each renderer, to check one is on the shoulder. |
+| `combatstats` | GSOOffline | Combat level (server and client), armor alignment and its multipliers, the per-hit damage cap, and base vs effective resistances. |
 | `fx <id>` / `sfx <id>` | GSOOffline | Plays an effect (the game's "_GFX IDs" list) 3 m in front of the player, or a sound at the player. |
 | `projectiles` | GSOOffline | The client's projectiles in flight (id, position, speed, model). Arrived projectiles linger invisibly for 5 s before the client deletes them. |
 | `openurl <url>` | GSOOffline | Calls `Application.OpenURL` as a menu link would. The log shows `Opened <url> through the shell.` when the link was sent through `explorer.exe`, outside the game's process tree. |
