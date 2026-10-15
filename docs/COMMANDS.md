@@ -45,6 +45,8 @@ Writes `decomp\` (git-ignored; never commit it).
 | `tools\datamining\.venv\Scripts\python.exe -I tools\datamining\gen_doors.py extracted\markers.json ..\GSOOffline\src\GSOOffline\Data\doors.json` | Regenerate GSOOffline's door table |
 | `python -I tools\datamining\gen_loot.py fetch extracted\wiki\pages.json` | Download every page of the Gran Skrea Online community wiki (wikitext, through its MediaWiki API) into `extracted\wiki\` |
 | `python -I tools\datamining\gen_loot.py build extracted\wiki\pages.json extracted\textassets ..\GSOOffline\src\GSOOffline\Data\loot.json` | Regenerate GSOOffline's monster drop tables from the wiki's "Drops" and "Drop sources" tables, matched to the game's item and NPC names. Prints names it couldn't match (fix them in `ALIASES`/`SKIP`). |
+| `python -I tools\datamining\gen_droptables.py ..\OldServerArchive\GSOServer\Server\Assets\Resources\XMLs extracted\textassets ..\GSOOffline\src\GSOOffline\Data\droptables.json` | Regenerate GSOOffline's drop tables from the original server's `Loot.xml` (and its NPC list, to tell which creatures it knew). |
+| `python -I tools\datamining\gen_shops.py ..\OldServerArchive\GSOServer\Server\Assets\Resources\XMLs\Shops.xml extracted\textassets ..\GSOOffline\src\GSOOffline\Data\shops.json` | Regenerate GSOOffline's shop stock from the original server's `Shops.xml`. |
 | `dump_text.py`, `dump_markers.py`, `scenes.py`, `count_dummies.py` | Building blocks used by extract.ps1, runnable on their own (see each file's docstring/argv) |
 
 ## DevBridge commands (written to `<game>\GSODevTools\cmd.txt`)

@@ -71,11 +71,7 @@ PATCH_NOTE_DROPS = [
     ("Elder Ent", "Nature mote", "common", "140: Nature's Blessing set materials"),
     ("Elder Ent", "Elder Root", "common", "140: Nature's Blessing set materials"),
 ]
-# Upgrade and grade stones drop from every monster by level band (wiki: "Grade stone", "Upgrade stone").
-GLOBAL = [
-    (437, "Small upgrade stone", 1, 24, 0.02), (438, "Medium upgrade stone", 25, 49, 0.02), (439, "Large upgrade stone", 50, 999, 0.02),
-    (440, "Small grade stone", 1, 24, 0.005), (441, "Medium grade stone", 25, 49, 0.005), (442, "Large grade stone", 50, 999, 0.005),
-]
+# Upgrade and grade stones and gear crates by level are GSOOffline code now (the original server's formulas).
 
 
 def fetch(out):
@@ -296,7 +292,6 @@ def build(pages_path, textassets, out_path):
         "generator": "GSODevTools tools/datamining/gen_loot.py",
         "rarityChances": RARITY,
         "defaultChance": DEFAULT_CHANCE,
-        "global": [{"typeId": t, "name": n, "minLevel": lo, "maxLevel": hi, "chance": c} for t, n, lo, hi, c in GLOBAL],
         "monsters": [],
     }
     for key in sorted(monsters):

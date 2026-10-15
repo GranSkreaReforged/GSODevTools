@@ -3,7 +3,11 @@
 All notable changes are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
+### Changed
+- `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
+
 ### Added
+- `tools/datamining/gen_droptables.py`: builds GSOOffline's `Data/droptables.json` from the original server's `Loot.xml`, with the NPC ids its `NPCInfo.xml` knew.
 - `tools/datamining/gen_shops.py`: builds GSOOffline's `Data/shops.json` from the original server's `Shops.xml` (in `OldServerArchive\`, outside the repos), checking every item id against the game's item data.
 - `gen_loot.py` adds the boss drops the official Steam patch notes name and the wiki's tables miss (`PATCH_NOTE_DROPS`, each row citing its update): the Storage Guard's armor set, Zalranaz's cleaver, Lydia's, Roke's and Jotnar's uniques, the Dark Tamer set from Sepitus, Nirish's venomous ring, amulet and materials, the Tomb guardian's amulet, Serpent's Fang, and the boss pets (Bear, Poacher, Infernal Hound, Young Ghit, Lizard warrior, Argus, Ent). Wiki entries win, and bosses that only have these rows keep their level-based silver.
 - `DEVBRIDGE.md` lists GSOOffline's `useobj`, `windows`, `hover`, `interactprompt`, `actionanim`, `chairs`, `sitall`, `workbench`, `die`, `canmove`, `weight`, `runtest` and `updatecheck`, and GSO HD Textures' `hdupdatecheck`.
