@@ -23,7 +23,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 
 API = "https://gran-skrea-online.fandom.com/api.php"
-SOURCE = "Gran Skrea Online wiki (gran-skrea-online.fandom.com), CC BY-SA"
+SOURCE = "Gran Skrea Online wiki (gran-skrea-online.fandom.com), CC BY-SA; boss drops from the official patch notes"
 
 # Rarity words on the wiki -> chance per kill. Reconstructions: the wiki never gives numbers.
 RARITY = {"always": 1.0, "common": 0.5, "common/uncommon": 0.3, "uncommon": 0.15, "rare": 0.04, "very rare": 0.005}
@@ -38,6 +38,39 @@ ALIASES = {
 }
 # Ambiguous or not an item in the game data ("colored beetle shells" = one of four shell colours, see BEETLE).
 SKIP = {"experience scroll", "bear cub", "monsters", "colored beetle shells", "shadow"}
+# Boss drops the official patch notes on Steam name (store.steampowered.com/news/app/595110) but the wiki's
+# drop tables miss: (NPC name, item name, rarity, update). Most items carry their boss's name; pets are the
+# ones the notes say a boss drops ("new pet bear (can be dropped from Bruno)"), or the one pet released with a
+# boss and named after it. Added only where the wiki has no entry for that item, so wiki chances win.
+PATCH_NOTE_DROPS = [
+    ("Bruno", "Bear", "rare", "137: new pet bear (can be dropped from Bruno)"),
+    ("George", "Poacher", "rare", "137: new pet poacher (can be dropped from the Storage Guard)"),
+    *[("George", n, "uncommon", "137: Storage Guard's armor set and crossbow") for n in (
+        "Storage guard's body", "Storage guard's chaps", "Storage guard's hood", "Storage guard's boots",
+        "Storage guard's bracelet", "Storage guard's quiver", "Storage guard's crossbow")],
+    ("Zalranaz", "Zalranaz's cleaver", "uncommon", "137: new unique item"),
+    ("Sepitus", "Infernal Hound", "rare", "135: pets dropped from Sepitus, Zalranaz and the Red Crab"),
+    *[("Sepitus", n, "uncommon", "139/140: the Dark Tamer armor set (Sepitus is the Dark Tamer)") for n in (
+        "Dark Tamer body", "Dark Tamer legs", "Dark Tamer bracers", "Dark Tamer boots", "Dark Tamer hood")],
+    ("Supreme Sea Serpent", "Serpent's Fang", "uncommon", "138: new unique item"),
+    ("Tomb guardian", "Tomb guardian's amulet", "uncommon", "137: new unique item"),
+    ("Nirish", "Venomous ring", "uncommon", "130: the Yorkhill sewers boss drops a new ring"),
+    ("Nirish", "Venomous amulet", "uncommon", "130: ...a new amulet"),
+    ("Nirish", "Nirish's poison fang", "common", "130: ...and crafting materials for a new bow and quiver"),
+    ("Nirish", "Nirish's skin", "common", "130: ...and crafting materials for a new bow and quiver"),
+    ("Roke", "Roke's ring", "uncommon", "139: new unique item"),
+    ("Lydia", "Lydia's staff", "uncommon", "139: new unique item"),
+    ("Lydia", "Lydia's earrings", "uncommon", "139: new unique item"),
+    ("Jotnar", "Jotnar's body", "uncommon", "139: new unique item"),
+    ("Jotnar", "Jotnar's chaps", "uncommon", "139: new unique item"),
+    ("Betsy", "Betsy's Horn", "common", "139: new boss Betsy, the Ghit Mother"),
+    ("Betsy", "Young Ghit", "rare", "139: new pet Young Ghit, with the Ghit Mother"),
+    ("Lakhar", "Lizard warrior", "rare", "139: new pet Lizard warrior, with Lakhar the Lizard Captain"),
+    ("Argus", "Argus", "rare", "140: new pet Argus"),
+    ("Elder Ent", "Ent", "rare", "140: new pet Ent, with the Elder Ent"),
+    ("Elder Ent", "Nature mote", "common", "140: Nature's Blessing set materials"),
+    ("Elder Ent", "Elder Root", "common", "140: Nature's Blessing set materials"),
+]
 # Upgrade and grade stones drop from every monster by level band (wiki: "Grade stone", "Upgrade stone").
 GLOBAL = [
     (437, "Small upgrade stone", 1, 24, 0.02), (438, "Medium upgrade stone", 25, 49, 0.02), (439, "Large upgrade stone", 50, 999, 0.02),
@@ -248,6 +281,15 @@ def build(pages_path, textassets, out_path):
         by = re.search(r"dropped_by\s*=\s*\[*([^|\]\n}]+)", text)
         if rate and by:
             add(by.group(1).strip(), title, chance=1.0 / int(rate.group(1)), origin="rate")
+
+    for m, name, rarity, note in PATCH_NOTE_DROPS:
+        found = item(name)
+        entry = monsters.get((npc(m) or "").lower())
+        if found and entry and found[0] in entry["drops"]:
+            continue   # the wiki has it
+        add(m, name, rarity=rarity, origin="patch notes " + note.split(":")[0])
+        if entry is None and (npc(m) or "").lower() in monsters:
+            monsters[npc(m).lower()]["dropsSilver"] = True   # no wiki table: keep the level-based silver
 
     out = {
         "source": SOURCE,
