@@ -114,6 +114,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
+| `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
+| `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
 | `combatstats` | GSOOffline | Combat level (server and client), armor alignment and its multipliers, the per-hit damage cap, and base vs effective resistances. |
 | `fx <id>` / `sfx <id>` | GSOOffline | Plays an effect (the game's "_GFX IDs" list) 3 m in front of the player, or a sound at the player. |
 | `projectiles` | GSOOffline | The client's projectiles in flight (id, position, speed, model). Arrived projectiles linger invisibly for 5 s before the client deletes them. |
