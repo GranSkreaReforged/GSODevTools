@@ -117,6 +117,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
 | `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
 | `spawnedobjects [from] [to]` | GSOOffline | What each spawned-object prefab (`ab_spawnedObject_N`) contains: objects, renderers and materials, and scripts. Identifies the numbered props without spawning them. |
+| `npcparts <uid>` / `npcpart <uid> <child> on\|off` | GSOOffline | A client NPC's model parts (renderers, materials, lights), and showing or hiding one by name (`_` for spaces), e.g. to find an aura that's part of a model. |
 | `flyers` | GSOOffline | The client's flying followers (parrot, bats): prefab type, owner, distance from the player and each renderer, to check one is on the shoulder. |
 | `combatstats` | GSOOffline | Combat level (server and client), armor alignment and its multipliers, the per-hit damage cap, and base vs effective resistances. |
 | `fx <id>` / `sfx <id>` | GSOOffline | Plays an effect (the game's "_GFX IDs" list) 3 m in front of the player, or a sound at the player. |
