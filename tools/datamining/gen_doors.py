@@ -55,6 +55,16 @@ MANUAL = [
     (35, 25, 38, 26), (38, 26, 35, 25),           # Ulan's 2nd floor
 ]
 
+# Where the original server put the player (Scr_InteractableHandler's forcePlayerPosition), for doors whose
+# guessed arrival lands outside the level. Ulan's dungeon's entrance door sits on the scene's edge: the guess
+# put players outside the dungeon.
+ORIGINAL_ARRIVALS = {
+    # (fromType, fromLevel): toPos
+    (33, 8): [76.4, 70.3, 33.6],        # into Ulan's dungeon
+    (34, 25): [880.9, 12.6, 1439.8],    # out of Ulan's dungeon
+    (38, 26): [85.0, 16.6, -185.9],     # Cave Dragons back up to Ulan's dungeon
+}
+
 result = []
 for ft, fl, tt, tl in MANUAL:
     src = [d for d in doors if d["typeId"] == ft and d["level"] == fl]
@@ -63,8 +73,9 @@ for ft, fl, tt, tl in MANUAL:
         print("missing", ft, fl, tt, tl)
         continue
     for s in src:
+        to = ORIGINAL_ARRIVALS.get((ft, fl)) or arrival(tl, dst[0]["pos"])
         result.append({"type": ft, "scene": fl, "pos": s["pos"], "toScene": tl,
-                       "toPos": arrival(tl, dst[0]["pos"]), "note": dst[0]["goName"]})
+                       "toPos": to, "note": dst[0]["goName"]})
 
 # Doors into a whole scene without a matching exit door: arrive at that scene's first marker cluster.
 def scene_entry(level):
