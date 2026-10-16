@@ -8,6 +8,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 - `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
 
 ### Added
+- `tools/datamining/gen_houseplots.py`: builds GSOOffline's `Data/houseplots.json`, the original server's house plots (`HousePlots_<scene>`; a scene's `.txt` wins over its older `.xml`).
 - `tools/datamining/gen_spawns.py`: builds GSOOffline's `Data/spawns.json`, the original server's NPC and harvestable spawns the client's scene markers lack.
 - `tools/datamining/gen_droptables.py`: builds GSOOffline's `Data/droptables.json` from the original server's `Loot.xml`, with the NPC ids its `NPCInfo.xml` knew.
 - `tools/datamining/gen_shops.py`: builds GSOOffline's `Data/shops.json` from the original server's `Shops.xml` (in `OldServerArchive\`, outside the repos), checking every item id against the game's item data.
