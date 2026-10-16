@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_doors.py` uses the original server's arrival points for Ulan's dungeon's doors (`ORIGINAL_ARRIVALS`); the guessed one put players outside the dungeon (GSOOffline #61).
 - `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
 
 ### Added
