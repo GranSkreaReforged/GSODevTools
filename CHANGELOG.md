@@ -4,9 +4,14 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_bountyspots.py` leaves Deepheart (scene 35) out of the bounty zones: it was never released and its doors stay locked (131 spots instead of 140).
+- `gen_doors.py` wires Yorkhill's buildings from the original server's house door table (`SetupHouseDoors`) instead of shop signs and guesses: the bank and gem shop were swapped and five guessed doors were wrong. It adds the harbour's buildings (West Athagos), Kombra's and Ulan's houses, Myra's hut, the bank under Yorkhill City and the governor's room (GSOOffline #72). `ROOMS` entries now carry their scene.
+- `gen_doors.py` uses the original server's arrival points for Ulan's dungeon's doors (`ORIGINAL_ARRIVALS`); the guessed one put players outside the dungeon (GSOOffline #61).
 - `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
 
 ### Added
+- `tools/datamining/gen_bountyspots.py`: builds GSOOffline's `Data/bountyspots.json`, where bounty-board outlaws wait: groups of hostile creatures in the open-world zones with their level range, away from bosses, house plots and guards, each with the nearest wayshrine or entrance, distance and direction.
+- `tools/datamining/gen_houseplots.py`: builds GSOOffline's `Data/houseplots.json`, the original server's house plots (`HousePlots_<scene>`; a scene's `.txt` wins over its older `.xml`).
 - `tools/datamining/gen_spawns.py`: builds GSOOffline's `Data/spawns.json`, the original server's NPC and harvestable spawns the client's scene markers lack.
 - `tools/datamining/gen_droptables.py`: builds GSOOffline's `Data/droptables.json` from the original server's `Loot.xml`, with the NPC ids its `NPCInfo.xml` knew.
 - `tools/datamining/gen_shops.py`: builds GSOOffline's `Data/shops.json` from the original server's `Shops.xml` (in `OldServerArchive\`, outside the repos), checking every item id against the game's item data.
