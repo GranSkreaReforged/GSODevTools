@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_doors.py` wires Yorkhill's buildings from the original server's house door table (`SetupHouseDoors`) instead of shop signs and guesses: the bank and gem shop were swapped and five guessed doors were wrong. It adds the harbour's buildings (West Athagos), Kombra's and Ulan's houses, Myra's hut, the bank under Yorkhill City and the governor's room (GSOOffline #72). `ROOMS` entries now carry their scene.
 - `gen_doors.py` uses the original server's arrival points for Ulan's dungeon's doors (`ORIGINAL_ARRIVALS`); the guessed one put players outside the dungeon (GSOOffline #61).
 - `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
 

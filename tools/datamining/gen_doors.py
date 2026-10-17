@@ -147,61 +147,99 @@ for note, scene, door, room_scene, room in INNS:
 # its towers (a door at the foot, a hatch in the roof) let a player fall through the roof; its two tunnels
 # lead to Scene_40DeepheartCave1, which is empty (no creatures, no resources) and drops you down a slope.
 
-# Yorkhill's shops and houses: generic doors (type 37) in Yorkhill City (8) open rooms laid out in
-# Scene_20YorkhillInteriors (20). Each room is (exit door inside, a point in the room to face). The
-# shop signs (Prefab_Object_Sign_*, see GSOOffline's `doorsigns` bridge command) name the building of
-# most doors; quest texts place the manor, Valeria's shop and the library. Doors marked "guess" have no
-# sign: they got the rooms left over, by what's around them.
+# Yorkhill's bank is a room under the city, in Yorkhill City itself; the door at the bottom of its stairs
+# goes back up. From the original server's house door table, like the buildings below. Inside, face the
+# banker; outside, the square (the guard on it).
+LINKS.append(("Yorkhill bank", (8, (939.15, 21.5, 1355.87), (937.85, 21.5, 1358.0)),
+                               (8, (954.05, 10.02, 848.98), (954.47, 10.02, 846.52))))
+# The governor's room opens off the manor's hall, both in the interiors scene.
+LINKS.append(("governor's room", (20, (1332.29, 107.29, 656.68), (1330.27, 107.29, 658.15)),
+                                 (20, (1317.8, 107.17, 678.78), (1320.2, 107.17, 679.48))))
+
+for note, a, b in LINKS[-2:]:
+    for (fs, fpos, _), (ts, _, tstand) in ((a, b), (b, a)):
+        result.append({"type": 37, "scene": fs, "pos": list(fpos), "toScene": ts,
+                       "toPos": [tstand[0], round(tstand[1] + 0.5, 2), tstand[2]], "note": note})
+
+# Yorkhill's shops and houses: generic doors (type 37) in Yorkhill City (8) and on the harbour (West
+# Athagos, 1) open rooms in Scene_20YorkhillInteriors (20); Myra's hut is in West Athagos' interiors (23).
+# Which door opens which room is the original server's house door table (Scr_InteractableHandler's
+# SetupHouseDoors). Each room is (scene, exit door inside, a point in the room to face, or None to arrive
+# at the door).
 ROOMS = {
-    "bank":       ((2288.04, 114.4, 168.7),  (2289.0, 114.4, 162.91)),    # banker, insurance advisor
-    "general":    ((828.24, 100.15, 1332.6), (823.95, 100.15, 1340.89)),  # general store
-    "general2":   ((727.5, 100.1, 1368.07),  (725.95, 100.25, 1376.02)),  # another general store
-    "jeweller":   ((800.04, 114.4, 226.18),  (801.34, 114.55, 220.24)),
-    "fineblades": ((1042.81, 100.15, 1333.71), (1043.15, 100.15, 1340.16)),  # weapons
-    "gems":       ((924.26, 100.15, 1333.71), (924.6, 100.15, 1340.16)),
-    "food":       ((857.42, 100.2, 1433.97), (851.36, 100.15, 1436.13)),
-    "fish":       ((596.85, 100.06, 1414.02), (591.99, 100.2, 1413.15)),  # harbor fish store
-    "bows":       ((999.51, 15.83, 1610.02), (1002.63, 15.8, 1601.5)),
-    "armor":      ((775.45, 117.75, -325.7), (774.07, 117.89, -334.69)),  # light, heavy armor and robes
-    "surgeon":    ((1410.21, 121.14, -95.96), (1411.66, 121.1, -93.69)),
-    "healer":     ((1615.2, 105.75, 561.73), (1617.46, 105.82, 555.27)),  # Valeria
-    "manor":      ((1325.01, 107.28, 654.32), (1329.22, 107.28, 658.91)), # Lingard's kitchen, the governor
-    "tavern":     ((256.71, 100.17, 294.05), (260.27, 100.28, 297.24)),
-    "artisans":   ((479.07, 100.21, -289.38), (478.82, 100.13, -297.68)), # Percy Dyster, workbenches
-    "library":    ((479.06, 100.16, -1.74),  (462.89, 100.16, -3.16)),    # Flora of Keshk (quest 26)
-    "auction":    ((867.66, 98.53, 1130.38), (877.61, 97.35, 1144.54)),   # auction hall, entered by a gate
+    "general":    (20, (828.24, 100.15, 1332.6), (823.95, 100.15, 1340.89)),  # general store, two doors
+    "general_2":  (20, (821.04, 100.15, 1339.33), (823.95, 100.15, 1340.89)),
+    "jeweller":   (20, (800.04, 114.4, 226.18),  (801.34, 114.55, 220.24)),
+    "fineblades": (20, (1042.81, 100.15, 1333.71), (1043.15, 100.15, 1340.16)),  # weapons
+    "gems":       (20, (924.26, 100.15, 1333.71), (924.6, 100.15, 1340.16)),
+    "food":       (20, (845.04, 100.2, 1438.22), (851.36, 100.15, 1436.13)),  # food market, two doors
+    "food_2":     (20, (857.42, 100.2, 1433.97), (851.36, 100.15, 1436.13)),
+    "bows":       (20, (999.51, 15.83, 1610.02), (1002.63, 15.8, 1601.5)),
+    "armor":      (20, (775.45, 117.75, -325.7), (774.07, 117.89, -334.69)),  # light, heavy armor and robes
+    "surgeon":    (20, (1410.21, 121.14, -95.96), (1411.66, 121.1, -93.69)),  # appearance change
+    "healer":     (20, (1615.2, 105.75, 561.73), (1617.46, 105.82, 555.27)),  # Valeria
+    "manor":      (20, (1325.01, 107.28, 654.32), (1329.22, 107.28, 658.91)), # Lingard's kitchen
+    "artisans":   (20, (479.07, 100.21, -289.38), (478.82, 100.13, -297.68)), # Percy Dyster, workbenches
+    "library":    (20, (479.06, 100.16, -1.74),  (462.89, 100.16, -3.16)),    # Flora of Keshk (quest 26)
+    "auction":    (20, (867.66, 98.53, 1130.38), (877.61, 97.35, 1144.54)),   # auction hall, entered by a gate
+    "kombra":     (20, (199.07, 99.88, 1.65),   (199.64, 100.02, -6.25)),
+    "ulan":       (20, (101.31, 99.94, 1.29),   (95.53, 100.08, -6.74)),      # Ulan at home
+    # The harbour's. The original sent its bank door to a room the client's interiors scene no longer has;
+    # the client's other bank room (banker, insurance advisor) is the one nothing else leads to.
+    "harbour bank":     (20, (2288.04, 114.4, 168.7), (2289.0, 114.4, 162.91)),
+    "harbour general":  (20, (727.5, 100.1, 1368.07), (725.95, 100.25, 1376.02)),  # two doors
+    "harbour general_2": (20, (720.3, 100.1, 1374.8), (725.95, 100.25, 1376.02)),
+    "harbour fish":     (20, (596.85, 100.06, 1414.02), (591.99, 100.2, 1413.15)),  # two doors
+    "harbour fish_2":   (20, (589.65, 100.06, 1420.75), (591.99, 100.2, 1413.15)),
+    "harbour tavern":   (20, (256.71, 100.17, 294.05), (260.27, 100.28, 297.24)),   # two doors
+    "harbour tavern_2": (20, (267.76, 100.17, 290.41), (260.27, 100.28, 297.24)),
+    "harbour tavern upstairs": (20, (267.76, 100.17, 222.79), None),
+    "myra":       (23, (200.1, 100.16, 0.14),   (198.14, 100.28, 1.93)),
 }
 
-# Yorkhill City door (marker position) -> room.
+# (scene, door marker position, room).
 YORKHILL = [
-    ((922.0, 21.37, 1354.14), "bank"),        # sign Bank
-    ((911.36, 21.39, 1367.57), "general"),    # sign Generalstore
-    ((907.0, 21.06, 1387.16), "jeweller"),    # sign Jeweller
-    ((947.63, 21.59, 1359.46), "fineblades"), # sign Blacksmithy
-    ((998.24, 15.71, 1366.26), "bows"),       # sign Archery store
-    ((1010.5, 13.38, 1376.6), "armor"),       # sign Clothing store
-    ((966.67, 17.88, 1406.9), "artisans"),    # sign ArtisansGuild
-    ((891.46, 21.39, 1341.48), "auction"),    # sign AuctionHouse (a gate)
-    ((879.35, 21.54, 1362.44), "library"),    # sign Library
-    ((929.41, 21.32, 1391.43), "manor"),      # Door_manor
-    ((933.32, 18.08, 1431.42), "healer"),     # Door_manor (1): "her shop is located behind the governor's manor"
-    ((939.15, 21.5, 1355.87), "gems"),        # guess: on the square, between the bank and the blacksmith
-    ((863.54, 10.75, 1425.0), "fish"),        # guess: down by the harbour
-    ((848.73, 18.81, 1348.19), "food"),       # guess
-    ((829.54, 18.75, 1350.2), "general2"),    # guess
-    ((851.93, 18.78, 1322.7), "surgeon"),     # guess
-    ((897.74, 21.44, 1374.78), "tavern"),     # guess
+    (8, (921.97, 21.37, 1354.14), "gems"),       # under the Bank sign, but the bank is the next door
+    (8, (911.36, 21.39, 1367.57), "general"),
+    (8, (897.74, 21.44, 1374.78), "general_2"),
+    (8, (907.0, 21.06, 1387.16), "jeweller"),
+    (8, (947.63, 21.59, 1359.46), "fineblades"),
+    (8, (998.24, 15.71, 1366.26), "bows"),
+    (8, (1010.5, 13.38, 1376.6), "armor"),
+    (8, (966.67, 17.88, 1406.9), "artisans"),
+    (8, (891.46, 21.39, 1341.48), "auction"),     # a gate
+    (8, (879.35, 21.54, 1362.44), "library"),
+    (8, (929.41, 21.32, 1391.43), "manor"),
+    (8, (933.32, 18.08, 1431.42), "healer"),
+    (8, (848.73, 18.81, 1348.19), "food"),
+    (8, (829.54, 18.75, 1350.2), "food_2"),
+    (8, (982.33, 20.94, 1338.45), "surgeon"),
+    (8, (851.93, 18.78, 1322.7), "kombra"),
+    (8, (863.54, 10.75, 1425.0), "ulan"),
+    (1, (983.69, 6.49, 1462.26), "harbour bank"),
+    (1, (976.93, 6.49, 1485.46), "harbour general"),
+    (1, (961.45, 6.49, 1485.55), "harbour general_2"),
+    (1, (992.05, 6.56, 1508.77), "harbour fish"),
+    (1, (978.63, 6.56, 1516.18), "harbour fish_2"),
+    (1, (955.83, 6.57, 1514.18), "harbour tavern"),
+    (1, (974.84, 6.57, 1509.54), "harbour tavern_2"),
+    # The original gave the upstairs room the fish store's door (so it never opened); the only door frame
+    # left on the tavern is the upper one.
+    (1, (964.94, 10.52, 1506.91), "harbour tavern upstairs"),
+    (1, (451.34, 14.35, 1373.73), "myra"),
 ]
 
 
 def inward(door, toward, metres=2.5):
+    if toward is None:
+        return [door[0], round(door[1] + 0.5, 2), door[2]]
     dx, dz = toward[0] - door[0], toward[2] - door[2]
     n = math.hypot(dx, dz) or 1.0
     return [round(door[0] + metres * dx / n, 2), round(door[1] + 0.5, 2), round(door[2] + metres * dz / n, 2)]
 
 
-buildings = [{"scene": 8, "pos": list(pos), "toScene": 20, "toPos": inward(*ROOMS[room]), "note": room}
-             for pos, room in YORKHILL]
+buildings = [{"scene": scene, "pos": list(pos), "toScene": ROOMS[room][0], "toPos": inward(*ROOMS[room][1:]),
+              "note": room} for scene, pos, room in YORKHILL]
 # Yorkhill's Hall of Heroes, entered through the door under its sign. Its markers are level 36 (build
 # order) but the game's scene id is the file's number, Scene_37YorkhillHallOfFame: 37.
 hall = [d for d in doors if d["level"] == 36 and d["typeId"] == 37]
@@ -216,13 +254,14 @@ result.append({"type": 43, "scene": 20, "pos": list(CELLAR_KITCHEN), "toScene": 
 for d in doors:
     if d["level"] == 20 and d["typeId"] == 43 and "DoorFrame" in d["goName"] and d["pos"][1] > 120:
         result.append({"type": 43, "scene": 20, "pos": d["pos"], "toScene": 20,
-                       "toPos": inward(CELLAR_KITCHEN, ROOMS["manor"][1]), "note": "manor kitchen"})
+                       "toPos": inward(CELLAR_KITCHEN, ROOMS["manor"][2]), "note": "manor kitchen"})
 
 json.dump({"doors": result,
            # generic doors (type 37) into rooms; any type 37 door in the room scene leads back out
            "buildings": buildings,
-           # building door scene -> interior scene (type 29 in, type 28 out)
-           "interiors": [{"scene": 1, "interior": 23}, {"scene": 8, "interior": 20}, {"scene": 21, "interior": 22}],
+           # building door scene -> interior scene (type 29 in, type 28 out). Yorkhill City's other type 29
+           # doors aren't in the original's table: they stay locked.
+           "interiors": [{"scene": 1, "interior": 23}, {"scene": 21, "interior": 22}],
            # interior exits for each interior scene (arrival spots)
            "interiorSpawns": [{"scene": l, "pos": arrival(l, d["pos"])}
                               for d in doors if d["typeId"] == 28 for l in [d["level"]]],
