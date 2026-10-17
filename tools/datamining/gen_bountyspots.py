@@ -17,7 +17,8 @@ import re
 import statistics
 import sys
 
-ZONES = {1: "West Athagos", 7: "Bal Sardan", 13: "East Athagos", 18: "Goldon", 19: "The Blue Sea", 34: "Ruteran", 35: "Deepheart"}
+# Deepheart (35) is left out: it was never released, and GSOOffline keeps its doors locked.
+ZONES = {1: "West Athagos", 7: "Bal Sardan", 13: "East Athagos", 18: "Goldon", 19: "The Blue Sea", 34: "Ruteran"}
 SPOT_RADIUS = 35.0        # creatures this close belong to one spot
 BOSS_CLEARANCE = 120.0
 HOUSE_CLEARANCE = 50.0
