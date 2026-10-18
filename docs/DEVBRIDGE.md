@@ -119,6 +119,10 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
 | `lootage <seconds>` | GSOOffline | Ages every loot bag on the ground by that much playing time; bags go at 0 (they last 1200 s). `loot` lists them with the time left. |
+| `bountypress <name start>` | GSOOffline | Presses the wanted board's button on that outlaw's line: starts the hunt, or (twice) abandons it. |
+| `huntage <seconds>` | GSOOffline | Takes that much playing time off every active bounty's hour (3600 s); at 0 the outlaw gets away. |
+| `bufficons [max]` | GSOOffline | Which buff icons exist in the client's resources (`Tex_BuffIcon_<id>`), up to *max* (200). |
+| `showbuff <id...>` | GSOOffline | Puts those buffs' icons on the buff bar for a minute, to look at them. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
 | `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
 | `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
