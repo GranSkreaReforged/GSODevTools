@@ -109,6 +109,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `bountyreset` / `bountyhere <style 0-4> <level>` / `outlaws` | GSOOffline | A fresh bounty board; an outlaw 8 m away (0 swordsman, 1 two-hander, 2 archer, 3 crossbowman, 4 fire mage); each outlaw's position and whether a player-sized body there overlaps anything. |
 | `fakeplayer spawn\|move dx dz\|attack id\|hit n\|die\|anim json\|myanim\|gone` | GSOOffline | A client-side other player driven straight through the client's receivers; `myanim` logs your own animation packet as a template. |
 | `houses` | GSOOffline | The house objects the client holds: id (plot), type, size, name, position, door and furniture count. |
+| `devbank` | GSOOffline | Opens the bank window as a banker does. |
 | `windows` | GSOOffline | The client's open windows by type (2 inventory, 7 shop, 14 bank...). |
 | `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
@@ -117,6 +118,14 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `sortinv` | GSOOffline | Sorts the inventory as the window's "By name" button does. |
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
+| `lootage <seconds>` | GSOOffline | Ages every loot bag on the ground by that much playing time; bags go at 0 (they last 1200 s). `loot` lists them with the time left. |
+| `bountypress <name start>` | GSOOffline | Presses the wanted board's button on that outlaw's line: starts the hunt, or (twice) abandons it. |
+| `huntage <seconds>` | GSOOffline | Takes that much playing time off every active bounty's hour (3600 s); at 0 the outlaw gets away. |
+| `bufficons [max]` | GSOOffline | Which buff icons exist in the client's resources (`Tex_BuffIcon_<id>`), up to *max* (200). |
+| `showbuff <id...>` | GSOOffline | Puts those buffs' icons on the buff bar for a minute, to look at them. |
+| `gearfx <grade>` | GSOOffline | Shows that grade's sparkles (4-8) on everything the player wears; `gearfx 0` goes back to the real grades. |
+| `gearfxinfo` | GSOOffline | The gear sparkle emitters: how many live, where (from the player), box size, and a few sparkles' size and colour. |
+| `gfxprobe` | GSOOffline | Which particle shaders the build has, the particle materials in the scene, and what the worn models are made of. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
 | `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
 | `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
