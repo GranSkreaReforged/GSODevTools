@@ -118,6 +118,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `sortinv` | GSOOffline | Sorts the inventory as the window's "By name" button does. |
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
+| `lootage <seconds>` | GSOOffline | Ages every loot bag on the ground by that much playing time; bags go at 0 (they last 1200 s). `loot` lists them with the time left. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
 | `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
 | `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
