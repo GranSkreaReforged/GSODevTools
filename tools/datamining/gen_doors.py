@@ -55,11 +55,24 @@ MANUAL = [
     (35, 25, 38, 26), (38, 26, 35, 25),           # Ulan's 2nd floor
 ]
 
-# Where the original server put the player (Scr_InteractableHandler's forcePlayerPosition), for doors whose
-# guessed arrival lands outside the level. Ulan's dungeon's entrance door sits on the scene's edge: the guess
-# put players outside the dungeon.
+# Where the original server put the player (Scr_InteractableHandler's forcePlayerPosition). Every typed door
+# has one, so the guess above is only a fallback. Type 14's is where it led once quest 6 is done; during the
+# quest, content.json's scene 5 triggers move the player on to the battle scenes, as the original's door did.
 ORIGINAL_ARRIVALS = {
     # (fromType, fromLevel): toPos
+    (9, 1): [0.8, 44.2, 3.18],          # into the Yorkhill mining cave
+    (10, 2): [651.7, 16.0, 1441.3],     # out of it
+    (11, 5): [556.3, 23.1, 1203.7],     # Roke's dungeon out to the ruins
+    (12, 1): [442.5, 108.5, 1593.4],    # the ruins into Roke's dungeon
+    (13, 5): [719.6, 33.9, 1566.2],     # Roke's dungeon up to the monastery
+    (13, 11): [719.6, 33.9, 1566.2],
+    (14, 1): [760.5, 131.4, 1860.4],    # the monastery hatch down to Roke's dungeon
+    (15, 1): [482.5, 118.7, 1778.8],    # the forest into Roke's dungeon
+    (16, 5): [505.2, 3.4, 1169.7],      # Roke's dungeon out to the forest
+    (22, 1): [260.9, 17.5, 410.4],      # into the silk crab cave
+    (23, 16): [485.5, 3.5, 1631.6],     # out of it
+    (24, 1): [688.5, 33.7, 1551.3],     # into the Yorkhill monastery
+    (25, 1): [664.7, 33.8, 1542.6],     # out of it
     (33, 8): [76.4, 70.3, 33.6],        # into Ulan's dungeon
     (34, 25): [880.9, 12.6, 1439.8],    # out of Ulan's dungeon
     (38, 26): [85.0, 16.6, -185.9],     # Cave Dragons back up to Ulan's dungeon
@@ -77,14 +90,21 @@ for ft, fl, tt, tl in MANUAL:
         result.append({"type": ft, "scene": fl, "pos": s["pos"], "toScene": tl,
                        "toPos": to, "note": dst[0]["goName"]})
 
-# Doors into a whole scene without a matching exit door: arrive at that scene's first marker cluster.
-def scene_entry(level):
-    pts = by_level.get(level, [])
-    return arrival(level, pts[0]) if pts else [0, 50, 0]
+# The Coral dungeon, from the original's house door table: the coral door in the silk crab cave (16) opens onto
+# the dungeon's first hall (27), whose double door leads back out; its other double door goes up to the boss
+# room (28) and back. The boss room's second door has no destination in the original: it stays locked.
+CORAL_DOOR, CORAL_HALL, CORAL_UP, CORAL_BOSS = (80.39, 5.62, 72.69), (210.34, 157.0, 239.19), (19.39, 157.0, 21.05), (264.61, 208.19, 414.01)
+for t, fs, fpos, ts, tpos, note in [(42, 16, CORAL_DOOR, 27, CORAL_HALL, "Coral dungeon"),
+                                    (37, 27, CORAL_HALL, 16, CORAL_DOOR, "Coral dungeon (out)"),
+                                    (37, 27, CORAL_UP, 28, CORAL_BOSS, "Coral dungeon boss room"),
+                                    (37, 28, CORAL_BOSS, 27, CORAL_UP, "Coral dungeon boss room (out)")]:
+    result.append({"type": t, "scene": fs, "pos": list(fpos), "toScene": ts, "toPos": arrival(ts, tpos), "note": note})
 
-for d in doors:
-    if d["typeId"] == 42 and d["level"] == 16:   # Coral dungeon entrance
-        result.append({"type": 42, "scene": 16, "pos": d["pos"], "toScene": 27, "toPos": scene_entry(27), "note": "Coral dungeon"})
+# The Snowy portal in Yorkhill takes the player to Ruteran (34), by the portal there (Scr_AbilitiesHandler's
+# UsePortal; "portal" below); clicking that one (type 43, the original's default interactable 18) comes back.
+SNOW_PORTAL = (-412.68, 51.08, -608.89)
+result.append({"type": 43, "scene": 34, "pos": list(SNOW_PORTAL), "toScene": 8, "toPos": [960.0, 22.5, 1330.0],
+               "note": "Snowy portal back to Yorkhill"})
 
 # Two-way links through generic doors, gates, hatches and ladders (type 37), whose names carry no
 # destination. Each side is (scene id, door marker, where a player stands to use it); going through one side
@@ -115,18 +135,16 @@ for outer, inner in [((863.04, 17.37, 1306.42), (862.57, 17.57, 1309.83)),     #
                      ((823.02, 10.54, 1433.96), (826.3, 10.74, 1433.23)),      # west, by the harbour
                      ((1006.15, 9.95, 1412.06), (1006.5, 10.2, 1408.92))]:     # north-east
     LINKS.append(("Yorkhill gate", (1, outer, beyond(outer, inner)), (8, inner, beyond(inner, outer))))
+# Its south and south-east gates open onto East Athagos (13), not West Athagos: the original's "East Athagos -
+# Yorkhill" doors. East Athagos also has a copy of the south-west gate, which led nowhere in the original.
+for outer, inner in [((947.76, 21.26, 1303.66), (947.57, 20.9, 1306.42)),      # south
+                     ((1097.19, 8.69, 1261.4), (1095.99, 9.09, 1264.94))]:     # south-east
+    LINKS.append(("Yorkhill gate (East Athagos)", (13, outer, beyond(outer, inner)), (8, inner, beyond(inner, outer))))
 
 for note, a, b in LINKS:
     for (fs, fpos, _), (ts, _, tstand) in ((a, b), (b, a)):
         result.append({"type": 37, "scene": fs, "pos": list(fpos), "toScene": ts,
                        "toPos": [tstand[0], round(tstand[1] + 0.5, 2), tstand[2]], "note": note})
-
-# Two Yorkhill City gates have no twin in West Athagos: they only lead out, onto the road beyond them.
-YORKHILL_CENTRE = (930.0, 0.0, 1380.0)
-for gate in [(947.57, 20.9, 1306.42), (1095.99, 9.09, 1264.94)]:
-    out = beyond(gate, YORKHILL_CENTRE, 4.0)
-    result.append({"type": 37, "scene": 8, "pos": list(gate), "toScene": 1,
-                   "toPos": [out[0], round(out[1] + 0.5, 2), out[2]], "note": "Yorkhill gate (out only)"})
 
 # Inns (type 29). Without an entry here a type 29 door opens its scene's interior scene at the first room
 # found; these pick the room. Each is (scene, door marker, interior scene, a point in the room by its exit).
@@ -242,10 +260,9 @@ buildings = [{"scene": scene, "pos": list(pos), "toScene": ROOMS[room][0], "toPo
               "note": room} for scene, pos, room in YORKHILL]
 # Yorkhill's Hall of Heroes, entered through the door under its sign. Its markers are level 36 (build
 # order) but the game's scene id is the file's number, Scene_37YorkhillHallOfFame: 37.
-hall = [d for d in doors if d["level"] == 36 and d["typeId"] == 37]
-if hall:
-    buildings.append({"scene": 8, "pos": [938.8, 22.72, 1377.44], "toScene": 37,
-                      "toPos": arrival(36, hall[0]["pos"]), "note": "hall of heroes"})
+# Arrive where the original put players, by its gate.
+buildings.append({"scene": 8, "pos": [938.8, 22.72, 1377.44], "toScene": 37,
+                  "toPos": [30.25, 14.9, 111.2], "note": "hall of heroes"})
 
 # The rat cellar (quest 27) opens off Lingard's kitchen in the manor, through door frames (type 43).
 CELLAR_KITCHEN, CELLAR = (1320.26, 107.28, 659.07), (1099.51, 121.18, 786.47)
@@ -265,6 +282,6 @@ json.dump({"doors": result,
            # interior exits for each interior scene (arrival spots)
            "interiorSpawns": [{"scene": l, "pos": arrival(l, d["pos"])}
                               for d in doors if d["typeId"] == 28 for l in [d["level"]]],
-           "portal": {"scene": 34, "pos": scene_entry(34)}},
+           "portal": {"scene": 34, "pos": [-412.0, 50.5, -609.0]}},   # the original's landing spot
           open(out_path, "w", encoding="utf-8"), indent=1)
 print(len(result), "door links written")
