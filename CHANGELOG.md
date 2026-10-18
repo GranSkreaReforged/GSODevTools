@@ -10,6 +10,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 - `gen_loot.py` no longer writes the global upgrade and grade stone list: GSOOffline uses the original server's level formulas.
 
 ### Added
+- `DEVBRIDGE.md` lists GSOOffline 1.7.1's test commands: `devbank`, `lootage`, `bountypress`, `huntage`, `bufficons`, `showbuff`, `gearfx`, `gearfxinfo` and `gfxprobe`.
 - `tools/datamining/gen_bountyspots.py`: builds GSOOffline's `Data/bountyspots.json`, where bounty-board outlaws wait: groups of hostile creatures in the open-world zones with their level range, away from bosses, house plots and guards, each with the nearest wayshrine or entrance, distance and direction.
 - `tools/datamining/gen_houseplots.py`: builds GSOOffline's `Data/houseplots.json`, the original server's house plots (`HousePlots_<scene>`; a scene's `.txt` wins over its older `.xml`).
 - `tools/datamining/gen_spawns.py`: builds GSOOffline's `Data/spawns.json`, the original server's NPC and harvestable spawns the client's scene markers lack.
