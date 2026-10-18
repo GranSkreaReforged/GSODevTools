@@ -123,6 +123,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `huntage <seconds>` | GSOOffline | Takes that much playing time off every active bounty's hour (3600 s); at 0 the outlaw gets away. |
 | `bufficons [max]` | GSOOffline | Which buff icons exist in the client's resources (`Tex_BuffIcon_<id>`), up to *max* (200). |
 | `showbuff <id...>` | GSOOffline | Puts those buffs' icons on the buff bar for a minute, to look at them. |
+| `gearfx <grade>` | GSOOffline | Shows that grade's sparkles (4-8) on everything the player wears; `gearfx 0` goes back to the real grades. |
+| `gearfxinfo` | GSOOffline | The gear sparkle emitters: how many live, where (from the player), box size, and a few sparkles' size and colour. |
+| `gfxprobe` | GSOOffline | Which particle shaders the build has, the particle materials in the scene, and what the worn models are made of. |
 | `killnpc <uid>` | GSOOffline | Kills a visible NPC as the player would: XP, loot bag, quest triggers. |
 | `devhealth <n>` | GSOOffline | Sets the test character's base health (it's saved, so only on throwaway characters), e.g. to stand in front of bosses. |
 | `blowlog on\|off` | GSOOffline | Logs every creature blow aimed at the player: `[blow] <name> (<type>) swings/shoots from <m>` and `... hits you for <n>`. Shows which creatures attack and how hard. |
