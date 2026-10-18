@@ -109,6 +109,7 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `bountyreset` / `bountyhere <style 0-4> <level>` / `outlaws` | GSOOffline | A fresh bounty board; an outlaw 8 m away (0 swordsman, 1 two-hander, 2 archer, 3 crossbowman, 4 fire mage); each outlaw's position and whether a player-sized body there overlaps anything. |
 | `fakeplayer spawn\|move dx dz\|attack id\|hit n\|die\|anim json\|myanim\|gone` | GSOOffline | A client-side other player driven straight through the client's receivers; `myanim` logs your own animation packet as a template. |
 | `houses` | GSOOffline | The house objects the client holds: id (plot), type, size, name, position, door and furniture count. |
+| `devbank` | GSOOffline | Opens the bank window as a banker does. |
 | `windows` | GSOOffline | The client's open windows by type (2 inventory, 7 shop, 14 bank...). |
 | `actionanim <id>` | GSOOffline | Sets the player's animator ActionID (12 = sit, 15 = sit on the ground, 0 = stop). Id 8 (lay dying and die) only ends once the player moves. |
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
