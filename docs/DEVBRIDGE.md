@@ -96,7 +96,8 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `building [n]` | GSOOffline | Lists the buildings (Yorkhill's shops and houses), or goes into building *n* as clicking its door would. Click a door inside (`client attemptObjectInteract $me 37`) to come back out. |
 | `doorsigns` | GSOOffline | Every shop sign (`Prefab_Object_Sign_*`) in the scene with its three nearest doors and gates. |
 | `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
-| `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would. |
+| `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would (with nothing in reach, it does nothing). |
+| `animhandlers` | GSOOffline | The client's animation handlers (`EasyAnimationHandler`), which one is current and its animator. Every NPC's animations come from the current one; a destroyed one breaks them. |
 | `useobj <typeId>` | GSOOffline | Uses the nearest object of that type as a mouse click does. |
 | `updatecheck <version>` / `hdupdatecheck <version>` | GSOOffline / GSOHDTextures | Reruns the GitHub update check as if that version were installed, e.g. `1.0.0` to see the "NEW UPDATE AVAILABLE" overlay. |
 | `weight` | GSOOffline | Carried weight against capacity as the server and the client count it, and the player's run speeds (forward, back, sideways). |
