@@ -159,6 +159,16 @@ for note, scene, door, room_scene, room in INNS:
     result.append({"type": 29, "scene": scene, "pos": list(door), "toScene": room_scene,
                    "toPos": arrival(room_scene, room), "note": note})
 
+# The Mages Guild (21) behind the giant gate on East Athagos' west ridge (Arthos: "Head over to the west ridge and
+# there you'll find a giant gate that leads to the Mages guild"). Outside it's a generic door (type 37), inside the
+# guild's "Exit" (type 28), so the names don't pair; checked in-game, it's the same gate on both sides. A door entry
+# for the exit also sends a player who came by wayshrine out of the gate, not to their home wayshrine.
+MAGES_GATE, MAGES_EXIT = (830.92, 13.86, 1045.73), (226.81, 10.25, 114.01)
+result.append({"type": 37, "scene": 13, "pos": list(MAGES_GATE), "toScene": 21, "toPos": [223.8, 10.5, 114.0],
+               "note": "Mages Guild gate"})
+result.append({"type": 28, "scene": 21, "pos": list(MAGES_EXIT), "toScene": 13, "toPos": [834.0, 14.36, 1045.73],
+               "note": "Mages Guild gate (out)"})
+
 # Deepheart (35) was never released, and every door there stays locked on purpose. markers.json has none of
 # its doors (the extraction missed that scene's interactables; GSOOffline's `interactables 37` lists them
 # live). Tried in-game and dropped: nothing ties its town's doors to the rooms of Scene_39DeepheartInteriors;
