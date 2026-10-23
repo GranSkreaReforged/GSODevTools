@@ -116,6 +116,10 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `clearspot x y z` | GSOOffline | The door arrival search at a point, with the reason each candidate was rejected. |
 | `playerstate` | GSOOffline | The client's attack state for the player (`attacking`, `anim.combat`, animation id), action animation, weapon in hand and on the back. |
 | `invorder` | GSOOffline | Server vs client inventory and bank, row by row (order, client id, amount). Swaps and drags are index based, so the orders must match. |
+| `quickdeposit` | GSOOffline | The bank window's "Quick deposit" button: every bag stack the bank already has a stack of goes in whole, except items on the item hotbar or equipped. |
+| `hotkeyitem <slot 0-9> <typeId>` | GSOOffline | Puts the bag's item of that type on the item hotbar, as dragging it there does. |
+| `iteminfo <typeId> [basic]` | GSOOffline | Opens the bag item's info window, as right-clicking it does; with `basic`, the shop/recipe info window for that item type. |
+| `menubutton <windowType>` | GSOOffline | Presses a menu bar button as a click does (22 = report a bug, which opens the GitHub issue page). |
 | `sortinv` | GSOOffline | Sorts the inventory as the window's "By name" button does. |
 | `loot` | GSOOffline | The loot bags the server holds in this scene, and the live bags the client shows. |
 | `lootroll <npcType> [n]` | GSOOffline | Rolls that NPC type's drop table *n* times (default 1000) and logs the totals. |
