@@ -1,13 +1,14 @@
 """Build GSOOffline's src/GSOOffline/Data/shops.json from the original server's Shops.xml.
 
-The game's developer sent the original server (2026-10-15); its Shops.xml lists what each shop sold. Shop ids
+The game's developer sent the original server (its develop branch, in UpdatedOldServerArchive); its Shops.xml lists what each shop sold. Shop ids
 are the ones dialogue nodes open (openshop=N). Each item may carry its own price (else the item's price),
 a stock cap (maxamount), a starting stock (currentamount) and a restock time (respawntime); the stock
-fields are kept for later even though GSOOffline doesn't use them yet.
+fields are kept for later even though GSOOffline doesn't use them yet. A shop with a currencyTypeId (the Hunters
+Guild's, paid in Hunters Guild tokens) prices its items in that item instead of silver (`currency`).
 
 Usage:
   python -I gen_shops.py <Shops.xml> <textassets> <shops.json>
-  e.g. gen_shops.py ../OldServerArchive/GSOServer/Server/Assets/Resources/XMLs/Shops.xml extracted/textassets ../GSOOffline/src/GSOOffline/Data/shops.json
+  e.g. gen_shops.py ../UpdatedOldServerArchive/Server/Assets/Resources/XMLs/Shops.xml extracted/textassets ../GSOOffline/src/GSOOffline/Data/shops.json
 """
 import json
 import pathlib
@@ -36,6 +37,8 @@ def build(shops_xml, textassets, out_path):
         entry = {"id": int(shop.get("shopid")), "name": (shop.get("name") or "").strip(), "items": []}
         if shop.get("comment"):
             entry["comment"] = shop.get("comment")
+        if shop.get("currencyTypeId"):
+            entry["currency"] = int(shop.get("currencyTypeId"))
         for it in shop.findall("item"):
             tid = int(it.get("id"))
             if tid not in names:

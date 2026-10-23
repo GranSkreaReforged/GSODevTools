@@ -4,6 +4,11 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_doors.py` links the Hunters Guild's door in Trout (East Athagos) with the guild hall in Athagos' interiors, from the original server's last door table. Its troll cave (an unreleased quest) and Poacher "tower" door (no door object in the client) are left out.
+- `gen_shops.py` keeps a shop's item currency (`currency`, the original's `currencyTypeId`).
+- The original-server generators (`gen_droptables.py`, `gen_shops.py`, `gen_houseplots.py`, `gen_spawns.py`) and `COMMANDS.md` now use the newer develop-branch snapshot in `UpdatedOldServerArchive\`, which has everything the final client shipped. Item ids the client doesn't know (unreleased Toolmaking tools) are still left out.
+- `gen_doors.py` links the giant gate on East Athagos' west ridge with the Mages Guild's own gate (scene 21), both ways (GSOOffline #98). The two sides' names don't pair, so the link was missing and the gate stayed locked.
+- `gen_doors.py` checks every scene transition against the original server's door tables (`Scr_InteractableHandler`): Yorkhill's south and south-east gates lead to East Athagos (13) and back, not out to West Athagos; the Coral dungeon links its door, first hall and boss room both ways; Ruteran's portal goes back to Yorkhill; and every typed door, the Hall of Heroes and the Snowy portal arrive at the original's positions instead of guesses.
 - `gen_bountyspots.py` leaves Deepheart (scene 35) out of the bounty zones: it was never released and its doors stay locked (131 spots instead of 140).
 - `gen_doors.py` wires Yorkhill's buildings from the original server's house door table (`SetupHouseDoors`) instead of shop signs and guesses: the bank and gem shop were swapped and five guessed doors were wrong. It adds the harbour's buildings (West Athagos), Kombra's and Ulan's houses, Myra's hut, the bank under Yorkhill City and the governor's room (GSOOffline #72). `ROOMS` entries now carry their scene.
 - `gen_doors.py` uses the original server's arrival points for Ulan's dungeon's doors (`ORIGINAL_ARRIVALS`); the guessed one put players outside the dungeon (GSOOffline #61).

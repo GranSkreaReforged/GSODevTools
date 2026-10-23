@@ -1,13 +1,13 @@
 """Build GSOOffline's src/GSOOffline/Data/houseplots.json from the original server's HousePlots_<scene> files.
 
-The original server (sent by the game's developer, 2026-10-15) kept one plot list per scene in Resources/XMLs,
+The original server (its develop branch, sent by the game's developer) kept one plot list per scene in Resources/XMLs,
 as HousePlots_<scene>.xml or .txt (same XML inside). Scene 13 has both: the .txt is the full list and the .xml an
 older subset, so a .txt wins over an .xml of the same scene. A plot's pos is its corner (lowest x and z); the
 house stands at pos + size / 2. Plot ids are per scene.
 
 Usage:
   python -I gen_houseplots.py <XMLs dir> <houseplots.json>
-  e.g. gen_houseplots.py ../OldServerArchive/GSOServer/Server/Assets/Resources/XMLs ../GSOOffline/src/GSOOffline/Data/houseplots.json
+  e.g. gen_houseplots.py ../UpdatedOldServerArchive/Server/Assets/Resources/XMLs ../GSOOffline/src/GSOOffline/Data/houseplots.json
 """
 import json
 import pathlib
