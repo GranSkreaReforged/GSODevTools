@@ -3,7 +3,8 @@ scene markers lack.
 
 GSOOffline populates each scene from the Scr_NPCDummy / Scr_HarvestableDummy markers the client ships (the final,
 2020 state of the game) plus content.json's hand-placed NPCs. The original server's npcData_<scene> and
-harvestableData_<scene> files (a December 2019 snapshot) list what it spawned. Where a marker of the same type is
+harvestableData_<scene> files (its develop branch, which matches the client's markers almost everywhere) list what
+it spawned. Where a marker of the same type is
 nearby the client is trusted (2020 moves stay). An NPC is taken from the original only when its scene has no
 marker or content.json spawn of that type at all (creatures wander, and 2020 rearranged some herds); a harvestable
 when no marker of its type is within NODE_RANGE metres (nodes stay put: Deepheart's mines have no markers, while
@@ -12,7 +13,7 @@ indices, mapped to scene ids through extracted/scenes.txt (next to markers.json)
 
 Usage:
   python -I gen_spawns.py <XMLs folder> <markers.json> <content.json> <spawns.json>
-  e.g. gen_spawns.py ../OldServerArchive/GSOServer/Server/Assets/Resources/XMLs extracted/markers.json ../GSOOffline/src/GSOOffline/Data/content.json ../GSOOffline/src/GSOOffline/Data/spawns.json
+  e.g. gen_spawns.py ../UpdatedOldServerArchive/Server/Assets/Resources/XMLs extracted/markers.json ../GSOOffline/src/GSOOffline/Data/content.json ../GSOOffline/src/GSOOffline/Data/spawns.json
 """
 import collections
 import json
