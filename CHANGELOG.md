@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_droptables.py` corrects a table Loot.xml files under the wrong NPC (`NPCID_FIXES`: the level 70 Poacher dungeon ghosts' table was under 297, the Elder Cave Dragon) and adds made-up tables for the bosses the original gave none, Sytrax and Viper (`MADE_UP`, named "(made up)"). It stops if Loot.xml changes under either (GSOOffline #116).
 - `gen_doors.py` links the Hunters Guild's door in Trout (East Athagos) with the guild hall in Athagos' interiors, from the original server's last door table. Its troll cave (an unreleased quest) and Poacher "tower" door (no door object in the client) are left out.
 - `gen_shops.py` keeps a shop's item currency (`currency`, the original's `currencyTypeId`).
 - The original-server generators (`gen_droptables.py`, `gen_shops.py`, `gen_houseplots.py`, `gen_spawns.py`) and `COMMANDS.md` now use the newer develop-branch snapshot in `UpdatedOldServerArchive\`, which has everything the final client shipped. Item ids the client doesn't know (unreleased Toolmaking tools) are still left out.
