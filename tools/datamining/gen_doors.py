@@ -190,7 +190,9 @@ for note, a, b in LINKS[-2:]:
                        "toPos": [tstand[0], round(tstand[1] + 0.5, 2), tstand[2]], "note": note})
 
 # Yorkhill's shops and houses: generic doors (type 37) in Yorkhill City (8) and on the harbour (West
-# Athagos, 1) open rooms in Scene_20YorkhillInteriors (20); Myra's hut is in West Athagos' interiors (23).
+# Athagos, 1) open rooms in Scene_20YorkhillInteriors (20); Myra's hut and the Hunters Guild (East Athagos, 13) are
+# in Athagos' interiors (23). The original's last door table also has a troll cave in East Athagos (for an
+# unreleased quest, empty in the client) and a Poacher dungeon "tower" door with no door object; both are left out.
 # Which door opens which room is the original server's house door table (Scr_InteractableHandler's
 # SetupHouseDoors). Each room is (scene, exit door inside, a point in the room to face, or None to arrive
 # at the door).
@@ -223,6 +225,8 @@ ROOMS = {
     "harbour tavern_2": (20, (267.76, 100.17, 290.41), (260.27, 100.28, 297.24)),
     "harbour tavern upstairs": (20, (267.76, 100.17, 222.79), None),
     "myra":       (23, (200.1, 100.16, 0.14),   (198.14, 100.28, 1.93)),
+    # The Hunters Guild in East Athagos (Trout): the original's door needs the Porter's leave (unique requirement 2).
+    "hunters guild": (23, (103.36, 139.37, 464.21), (108.0, 139.5, 447.0)),
 }
 
 # (scene, door marker position, room).
@@ -255,6 +259,7 @@ YORKHILL = [
     # left on the tavern is the upper one.
     (1, (964.94, 10.52, 1506.91), "harbour tavern upstairs"),
     (1, (451.34, 14.35, 1373.73), "myra"),
+    (13, (1447.5, 18.13, 869.8), "hunters guild"),
 ]
 
 

@@ -1,14 +1,14 @@
 """Build GSOOffline's src/GSOOffline/Data/droptables.json from the original server's Loot.xml and NPCInfo.xml.
 
-The game's developer sent the original server; its Loot.xml holds the real drop tables (a snapshot from
-about update 136, December 2019). Each table lists NPC type ids and drops; the server rolled every drop on its own,
+The game's developer sent the original server; its Loot.xml holds the real drop tables (the develop-branch
+snapshot in UpdatedOldServerArchive, which has everything the final client has). Each table lists NPC type ids and drops; the server rolled every drop on its own,
 1 in `rate`, with an amount from minamount to maxamount (default 1). Item 0 is silver. The NPC ids in the
 original NPCInfo.xml are written out too: an NPC the original knew but gave no table dropped nothing from one,
 while NPCs added after the snapshot keep GSOOffline's wiki tables (loot.json).
 
 Usage:
   python -I gen_droptables.py <XMLs folder> <textassets> <droptables.json>
-  e.g. gen_droptables.py ../OldServerArchive/GSOServer/Server/Assets/Resources/XMLs extracted/textassets ../GSOOffline/src/GSOOffline/Data/droptables.json
+  e.g. gen_droptables.py ../UpdatedOldServerArchive/Server/Assets/Resources/XMLs extracted/textassets ../GSOOffline/src/GSOOffline/Data/droptables.json
 """
 import json
 import pathlib
