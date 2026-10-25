@@ -93,8 +93,9 @@ They are discovered on first use, the name is matched case-insensitively, and ea
 | `npcbounds [n]` | GSOOffline | The nearest *n* NPCs with rendered size, feet height above the ground and the animation playing. Finds giant, sunken or frozen NPCs. |
 | `animclips` | GSOOffline | The client's animation clip table, by id. |
 | `door [n]` | GSOOffline | Lists the door table, or goes through door *n* as a click would. Loop over all of them to check every arrival. |
-| `building [n]` | GSOOffline | Lists the buildings (Yorkhill's shops and houses), or goes into building *n* as clicking its door would. Click a door inside (`client attemptObjectInteract $me 37`) to come back out. |
+| `building [n]` | GSOOffline | Lists the buildings (Yorkhill's and Deepheart's shops and houses), or goes into building *n* as clicking its door would. Click a door inside (`client attemptObjectInteract $me 37`) to come back out. |
 | `doorsigns` | GSOOffline | Every shop sign (`Prefab_Object_Sign_*`) in the scene with its three nearest doors and gates. |
+| `dooranchor [typeId]` | GSOOffline | Every door of that type (default 37) with the colliders around its frame; `FREESTANDING` means a door in no wall (gen_doors.py's `hidden`). Big models without colliders also read freestanding: look before hiding one. |
 | `hover <npc uid>` / `hover obj <typeId>` / `hover off` | GSOOffline | Acts as if the mouse cursor were over that NPC or the nearest object of that type, for the Interact key (F). |
 | `interactprompt [press]` | GSOOffline | What F would use now, with the NPCs and objects within 8 m; `press` uses it as F would (with nothing in reach, it does nothing). |
 | `animhandlers` | GSOOffline | The client's animation handlers (`EasyAnimationHandler`), which one is current and its animator. Every NPC's animations come from the current one; a destroyed one breaks them. |

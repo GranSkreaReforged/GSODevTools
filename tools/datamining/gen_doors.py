@@ -169,11 +169,10 @@ result.append({"type": 37, "scene": 13, "pos": list(MAGES_GATE), "toScene": 21, 
 result.append({"type": 28, "scene": 21, "pos": list(MAGES_EXIT), "toScene": 13, "toPos": [834.0, 14.36, 1045.73],
                "note": "Mages Guild gate (out)"})
 
-# Deepheart (35) was never released, and every door there stays locked on purpose. markers.json has none of
-# its doors (the extraction missed that scene's interactables; GSOOffline's `interactables 37` lists them
-# live). Tried in-game and dropped: nothing ties its town's doors to the rooms of Scene_39DeepheartInteriors;
-# its towers (a door at the foot, a hatch in the roof) let a player fall through the roof; its two tunnels
-# lead to Scene_40DeepheartCave1, which is empty (no creatures, no resources) and drops you down a slope.
+# Deepheart (35): its houses are below (buildings). The original's last door table also links the foot and the
+# top of its two towers and two lighthouses, and two tunnels into Scene_40DeepheartCave1; all stay locked. The
+# tops have no floor to stand on (tried in-game: the arrival finds no ground and you fall back to the foot), and
+# the cave is empty (no creatures, no resources).
 
 # Yorkhill's bank is a room under the city, in Yorkhill City itself; the door at the bottom of its stairs
 # goes back up. From the original server's house door table, like the buildings below. Inside, face the
@@ -279,6 +278,36 @@ buildings = [{"scene": scene, "pos": list(pos), "toScene": ROOMS[room][0], "toPo
 buildings.append({"scene": 8, "pos": [938.8, 22.72, 1377.44], "toScene": 37,
                   "toPos": [30.25, 14.9, 111.2], "note": "hall of heroes"})
 
+# Deepheart's houses (35) open rooms in Scene_39DeepheartInteriors (39), from the original's last house door
+# table ("DH to DH Interiors"). Each is (door marker in town, the room's door inside, name); the original put
+# players on the inside door and took them back out through it, and the arrival search finds the floor in front.
+# Its Art Gallery is left out: the interiors scene has no room at the original's point.
+DEEPHEART = [
+    ((-739.4, 9.11, -123.8),    (-929.1, 51.0, -835.8),    "house A"),
+    ((-732.35, 9.02, -119.25),  (-1007.4, 48.6, -827.7),   "Lacmedle Bakery and Confections"),
+    ((-667.99, 9.16, -123.87),  (-153.6, 152.3, 1170.8),   "house of Marcus Hale"),
+    ((-668.36, 13.08, -135.6),  (-210.2, 159.3, 1252.6),   "house D"),
+    ((-669.83, 13.0, -70.97),   (-153.3, 157.4, 1488.5),   "house E"),
+    ((-664.13, 9.16, -60.36),   (-107.8, 161.8, 2316.7),   "house F"),
+    ((-647.07, 9.32, -50.62),   (268.1, 170.7, -750.9),    "house G"),
+    ((-635.09, 7.33, -250.42),  (-59.5, 102.7, 1710.7),    "house H"),
+    ((-639.11, 11.25, -258.73), (-263.7, 106.6, 1711.8),   "house I"),        # front
+    ((-628.21, 11.39, -265.45), (-259.1, 106.7, 1702.4),   "house I (side)"),
+    ((-668.81, 11.21, -257.29), (-263.1, 106.7, 1815.2),   "house J"),        # front
+    ((-676.73, 11.28, -244.45), (-271.5, 106.6, 1824.7),   "house J (side)"),
+    ((-604.71, 24.06, -144.91), (360.8, 130.0, -422.0),    "Clarke residence"),  # front
+    ((-612.43, 23.88, -131.8),  (353.0, 130.0, -411.6),    "Clarke residence (side)"),
+    ((-582.78, 24.12, -138.13), (-485.8, 117.7, 2169.8),   "castle"),
+]
+buildings += [{"scene": 35, "pos": list(door), "toScene": 39, "toPos": inward(inside, None), "note": note}
+              for door, inside, note in DEEPHEART]
+
+# Doors standing on their own in the open, in no building and in no door table (#135): hidden in-game.
+HIDDEN = [
+    (35, (-730.62, 8.89, -150.34)),   # behind the trees by the harbour
+    (35, (-729.27, 8.19, -163.18)),   # leaning on the harbour boardwalk
+]
+
 # The rat cellar (quest 27) opens off Lingard's kitchen in the manor, through door frames (type 43).
 CELLAR_KITCHEN, CELLAR = (1320.26, 107.28, 659.07), (1099.51, 121.18, 786.47)
 result.append({"type": 43, "scene": 20, "pos": list(CELLAR_KITCHEN), "toScene": 20,
@@ -297,6 +326,8 @@ json.dump({"doors": result,
            # interior exits for each interior scene (arrival spots)
            "interiorSpawns": [{"scene": l, "pos": arrival(l, d["pos"])}
                               for d in doors if d["typeId"] == 28 for l in [d["level"]]],
-           "portal": {"scene": 34, "pos": [-412.0, 50.5, -609.0]}},   # the original's landing spot
+           "portal": {"scene": 34, "pos": [-412.0, 50.5, -609.0]},    # the original's landing spot
+           # door objects to hide on arrival in their scene
+           "hidden": [{"scene": s, "pos": list(p)} for s, p in HIDDEN]},
           open(out_path, "w", encoding="utf-8"), indent=1)
 print(len(result), "door links written")
