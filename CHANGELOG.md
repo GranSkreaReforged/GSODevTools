@@ -4,6 +4,7 @@ All notable changes are documented here. Format: [Keep a Changelog](https://keep
 
 ## [Unreleased]
 ### Changed
+- `gen_droptables.py` adds drops to the original's tables (`ADDED_DROPS`): the Bishop's mitre on the Elder Ent's and the Dark mitre on Zalranaz's, 1 in 150, as the titles that gave them need PvP (GSOOffline #125). It stops if Loot.xml loses either table.
 - `gen_doors.py` opens Deepheart's houses (GSOOffline #135): 15 doors in town lead into their rooms in Scene_39DeepheartInteriors, from the original server's last door table. Its Art Gallery (no room at the original's point), towers and lighthouses (no floor at the top) and tunnels (the cave is empty) stay locked. A new `hidden` list names door objects standing on their own in the open, which GSOOffline hides: Deepheart's two by the harbour.
 - `gen_droptables.py` corrects a table Loot.xml files under the wrong NPC (`NPCID_FIXES`: the level 70 Poacher dungeon ghosts' table was under 297, the Elder Cave Dragon) and adds made-up tables for the bosses the original gave none, Sytrax and Viper (`MADE_UP`, named "(made up)"). It stops if Loot.xml changes under either (GSOOffline #116).
 - `gen_doors.py` links the Hunters Guild's door in Trout (East Athagos) with the guild hall in Athagos' interiors, from the original server's last door table. Its troll cave (an unreleased quest) and Poacher "tower" door (no door object in the client) are left out.

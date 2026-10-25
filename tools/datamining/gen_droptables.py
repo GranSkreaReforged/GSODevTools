@@ -6,8 +6,9 @@ snapshot in UpdatedOldServerArchive, which has everything the final client has).
 original NPCInfo.xml are written out too: an NPC the original knew but gave no table dropped nothing from one,
 while NPCs added after the snapshot keep GSOOffline's wiki tables (loot.json).
 
-Two corrections on top (GSOOffline #116): NPCID_FIXES mends a table filed under the wrong NPC, and MADE_UP adds
-tables for bosses the original gave none (named "(made up)" so they're never taken for the original's).
+Corrections on top: NPCID_FIXES mends a table filed under the wrong NPC and MADE_UP adds tables for bosses the
+original gave none (named "(made up)" so they're never taken for the original's) (GSOOffline #116); ADDED_DROPS
+gives items the original only handed out for titles a drop on an existing table (#125).
 
 Usage:
   python -I gen_droptables.py <XMLs folder> <textassets> <droptables.json>
@@ -57,6 +58,14 @@ MADE_UP = [
 ]
 
 
+# Drops added to the original's tables, by table name: (item, rate, min, max). The original gave the mitres with
+# the Bishop and Magus titles, which need PvP honor and darkness; offline they drop from the bosses that fit.
+ADDED_DROPS = {
+    "Elder Ent": [(419, 150, 1, 1)],   # Bishop's mitre
+    "Zalranaz": [(421, 150, 1, 1)],    # Dark mitre
+}
+
+
 def load_items(textassets):
     text = (pathlib.Path(textassets) / "items.txt").read_text(encoding="utf-8", errors="replace")
     names = {}
@@ -93,9 +102,15 @@ def build(xmls, textassets, out_path):
             if entry["npcs"] != written:
                 sys.exit(f"Loot.xml's '{entry['name']}' is for {entry['npcs']}, not {written}: check NPCID_FIXES")
             entry["npcs"] = meant
+        for tid, rate, lo, hi in ADDED_DROPS.pop(entry["name"], []):
+            if tid not in names:
+                sys.exit(f"ADDED_DROPS: item {tid} isn't in the game's item data")
+            entry["drops"].append({"typeId": tid, "name": names[tid], "rate": rate, "min": lo, "max": hi})
         tables.append(entry)
     if NPCID_FIXES:
         sys.exit(f"NPCID_FIXES names tables Loot.xml doesn't have: {list(NPCID_FIXES)}")
+    if ADDED_DROPS:
+        sys.exit(f"ADDED_DROPS names tables Loot.xml doesn't have: {list(ADDED_DROPS)}")
     covered = {n for t in tables for n in t["npcs"]}
     for npcs, name, drops in MADE_UP:
         if covered & set(npcs):
